@@ -99,20 +99,20 @@ You can name a code block by giving it a name field, like so:
     const y = 7;
     #+end_src
 
-The following block has exactly those headers.
+The following block has exactly that setup:
 
     const y = 7;
 
 Then, you can include the code from the named block using `noweb` syntax:
 
     #+begin_src js
-    
+    <<vars>>
     console.log("y is: " + y)
     #+end_src
 
 Which results in the following block and its results:
 
-    <<vars>>
+    
     console.log("y is: " + y)
 
     y is: 7

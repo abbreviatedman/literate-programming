@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
   <head>
-    <!-- 2022-07-18 Mon 13:13 -->
+    <!-- 2022-07-18 Mon 13:36 -->
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>&lrm;</title>
@@ -463,12 +463,12 @@
   </head>
   <body>
     <div id="content" class="content">
-      <div id="outline-container-org0699b79" class="outline-2">
-        <h2 id="org0699b79">Literate Programming Features Testing Notebook</h2>
-        <div class="outline-text-2" id="text-org0699b79"></div>
-        <div id="outline-container-org905bd5b" class="outline-3">
-          <h3 id="org905bd5b">Introduction</h3>
-          <div class="outline-text-3" id="text-org905bd5b">
+      <div id="outline-container-orgd2f2b48" class="outline-2">
+        <h2 id="orgd2f2b48">Literate Programming Features Testing Notebook</h2>
+        <div class="outline-text-2" id="text-orgd2f2b48"></div>
+        <div id="outline-container-org7ebe35d" class="outline-3">
+          <h3 id="org7ebe35d">Introduction</h3>
+          <div class="outline-text-3" id="text-org7ebe35d">
             <p>
               This notebook exists to try out various features of literate
               programming in Emacs&rsquo; Org Mode. Specifically, it tests the
@@ -482,9 +482,9 @@
           </div>
         </div>
 
-        <div id="outline-container-orgad4cfbb" class="outline-3">
-          <h3 id="orgad4cfbb">Header Arguments Settings</h3>
-          <div class="outline-text-3" id="text-orgad4cfbb">
+        <div id="outline-container-org429225f" class="outline-3">
+          <h3 id="org429225f">Header Arguments Settings</h3>
+          <div class="outline-text-3" id="text-org429225f">
             <p>Header arguments control a lot of the behavior of:</p>
 
             <ul class="org-ul">
@@ -503,9 +503,9 @@
             <p>It can be set in several places, as we&rsquo;ll see:</p>
           </div>
 
-          <div id="outline-container-org089dc4d" class="outline-4">
-            <h4 id="org089dc4d">Setting Header Args Globally</h4>
-            <div class="outline-text-4" id="text-org089dc4d">
+          <div id="outline-container-orgb187bb9" class="outline-4">
+            <h4 id="orgb187bb9">Setting Header Args Globally</h4>
+            <div class="outline-text-4" id="text-orgb187bb9">
               <p>
                 We currently have the following set as our global configuration:
               </p>
@@ -532,9 +532,9 @@
             </div>
           </div>
 
-          <div id="outline-container-orgaf870db" class="outline-4">
-            <h4 id="orgaf870db">Setting Header Args Per File</h4>
-            <div class="outline-text-4" id="text-orgaf870db">
+          <div id="outline-container-org849ee46" class="outline-4">
+            <h4 id="org849ee46">Setting Header Args Per File</h4>
+            <div class="outline-text-4" id="text-org849ee46">
               <p>
                 You can set header args for the current file using the following
                 syntax at the start of the file:
@@ -583,9 +583,9 @@ console.log(x)
             </div>
           </div>
 
-          <div id="outline-container-org4b2bc02" class="outline-4">
-            <h4 id="org4b2bc02">Setting Header Args Per Tree</h4>
-            <div class="outline-text-4" id="text-org4b2bc02">
+          <div id="outline-container-org3d435a5" class="outline-4">
+            <h4 id="org3d435a5">Setting Header Args Per Tree</h4>
+            <div class="outline-text-4" id="text-org3d435a5">
               <p>
                 You can also add header args to a tree, overriding anything set
                 more generally. You must add these header args as the
@@ -623,9 +623,9 @@ console.log(x)
             </div>
           </div>
 
-          <div id="outline-container-org39b8cb7" class="outline-4">
-            <h4 id="org39b8cb7">Setting Header Args Per Code Block</h4>
-            <div class="outline-text-4" id="text-org39b8cb7">
+          <div id="outline-container-orgc9546cd" class="outline-4">
+            <h4 id="orgc9546cd">Setting Header Args Per Code Block</h4>
+            <div class="outline-text-4" id="text-orgc9546cd">
               <p>
                 You can also set individual code blocks to have their own header
                 args, again overriding anything set more generally.
@@ -663,9 +663,9 @@ console.log(x)
           </div>
         </div>
 
-        <div id="outline-container-org4aa39e0" class="outline-3">
-          <h3 id="org4aa39e0">Naming And Re-Using Code Blocks</h3>
-          <div class="outline-text-3" id="text-org4aa39e0">
+        <div id="outline-container-orgf7ee937" class="outline-3">
+          <h3 id="orgf7ee937">Naming And Re-Using Code Blocks</h3>
+          <div class="outline-text-3" id="text-orgf7ee937">
             <p>You can name a code block by giving it a name field, like so:</p>
             <div class="org-src-container">
               <pre
@@ -682,7 +682,7 @@ console.log(x)
             <div class="org-src-container">
               <pre
                 class="src src-js"
-                id="org6fa9ccc"
+                id="org8e75999"
               ><span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">y</span> = <span style="color: #0000c0;">7</span>;
 </pre>
             </div>
@@ -696,7 +696,7 @@ console.log(x)
               <pre
                 class="src src-org"
               ><span style="color: #505050;">#+begin_src js</span>
-
+<span style="color: #000000;">&lt;&lt;vars&gt;&gt;</span>
 <span style="color: #000000;">console.log(</span><span style="color: #145c33;">"y is: "</span><span style="color: #000000;"> + y)</span>
 <span style="color: #505050;">#+end_src</span>
 </pre>
@@ -705,7 +705,7 @@ console.log(x)
             <p>Which results in the following block and its results:</p>
 
             <div class="org-src-container">
-              <pre class="src src-js">&lt;&lt;vars&gt;&gt;
+              <pre class="src src-js">
 console.log(<span style="color: #145c33;">"y is: "</span> + y)
 </pre>
             </div>

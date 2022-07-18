@@ -113,7 +113,7 @@ const y = 7;
 ,#+end_src
 #+end_src
 
-The following block has exactly those headers.
+The following block has exactly that setup:
 
 #+NAME: vars
 #+begin_src js
@@ -122,7 +122,7 @@ const y = 7;
 
 Then, you can include the code from the named block using =noweb= syntax:
 
-#+begin_src org
+#+begin_src org :noweb no
 ,#+begin_src js
 <<vars>>
 console.log("y is: " + y)
