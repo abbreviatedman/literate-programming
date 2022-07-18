@@ -1,0 +1,130 @@
+#+PROPERTY: header-args :var x=1
+
+* Literate Programming Features Testing Notebook
+** Introduction
+This notebook exists to try out various features of literate programming in Emacs' Org Mode. Specifically, it tests the results of:
+
+- using header arguments
+- naming and re-using a code block
+
+** Header Arguments Settings
+Header arguments control a lot of the behavior of:
+
+- evaluation—how the code is run and how the results are printed
+- exporting—how the code is exported to another format, like HTML
+- tangling—how and where the code goes when made into an executable
+
+It can be set in several places, as we'll see:
+
+*** Setting Header Args Globally
+:PROPERTIES:
+:ID:       32717d03-91aa-42dd-b97e-4c51ac9a12c9
+:END:
+
+We currently have the following set as our global configuration:
+
+#+begin_src elisp
+(setq org-babel-default-header-args `((:results . "verbatim pp replace output")
+                                      (:exports . "both")
+                                      (:noweb . "strip-export")
+                                      (:session . "none")
+                                      (:eval . "no-export")))
+#+end_src
+
+A /reasonably good/ resource to see what each of those do is [[https://org-babel.readthedocs.io/en/latest/header-args/][the docs for header args]].
+
+*** Setting Header Args Per File
+You can set header args for the current file using the following syntax at the start of the file:
+
+#+begin_src org
+#+PROPERTY: header-args    :results silent
+#+end_src
+
+This file currently has the following set:
+
+#+begin_src org
+#+PROPERTY: header-args :var x=1
+#+end_src
+
+This sets that header arg for the whole file, overriding anything set globally. In this case, this means that we have a value called =x= with the value =1= that we can read in any code block, like so:
+
+#+begin_src js
+console.log(x)
+#+end_src
+
+#+RESULTS:
+: 1
+
+Note that it is a good idea to re-evaluate the file-level properties after adding or changing them, using =org-ctrl-c-ctrl-c=.
+
+*** Setting Header Args Per Tree
+:PROPERTIES:
+:header-args: :var x=5
+:END:
+
+You can also add header args to a tree, overriding anything set more generally. You must add these header args as the /very/ first child of the tree.
+
+This is the syntax:
+
+#+begin_src org
+:PROPERTIES:
+:header-args: :var x=5
+:END:
+#+end_src
+
+This tree has that header arg, so despite setting =x= as having a value of =1= in the file, it should have the value of =5= here.
+
+#+begin_src js
+console.log(x)
+#+end_src
+
+#+RESULTS:
+: 5
+
+
+*** Setting Header Args Per Code Block
+
+You can also set individual code blocks to have their own header args, again overriding anything set more generally.
+
+Here is the syntax:
+#+begin_src org
+,#+begin_src js :var x=8
+console.log(x)
+,#+end_src
+#+end_src
+
+The following code block has its header arg set exactly like the above.
+
+#+begin_src js :var x=8
+console.log(x)
+#+end_src
+
+#+RESULTS:
+: 8
+
+And voila.
+
+** Naming And Re-Using Code Blocks
+
+#+NAME: vars
+#+begin_src js
+const y = 7;
+#+end_src
+
+#+begin_src js
+<<vars>>
+const greeting = 'hello';
+console.log("greeting is: " + greeting)
+console.log("x is: " + x)
+console.log("y is: " + y)
+#+end_src
+
+#+RESULTS:
+
+#+begin_src js
+<<vars>>
+console.log(y + 3)
+#+end_src
+
+#+RESULTS:
+: 10
