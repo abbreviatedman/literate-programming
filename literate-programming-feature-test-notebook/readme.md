@@ -92,16 +92,36 @@ And voila.
 
 ## Naming And Re-Using Code Blocks
 
+You can name a code block by giving it a name field, like so:
+
+    #+NAME: vars
+    #+begin_src js
+    const y = 7;
+    #+end_src
+
+The following block has exactly those headers.
+
     const y = 7;
 
+Then, you can include the code from the named block using `noweb` syntax:
+
+    #+begin_src js
     
-    const greeting = 'hello';
-    console.log("greeting is: " + greeting)
-    console.log("x is: " + x)
+    console.log("y is: " + y)
+    #+end_src
+
+Which results in the following block and its results:
+
+    <<vars>>
     console.log("y is: " + y)
 
-    
-    console.log(y + 3)
+    y is: 7
 
-    10
+An important thing to note is the setup required for this. Globally, we have the following relevant header:
+
+    (setq org-babel-default-header-args `((:noweb . "strip-export")))
+
+The `noweb: strip-export` option does two things: allows each block to reference other named blocks, and strips the inclusion of the named block from the export process.
+
+Whether to export the referenced block can be overridden on a file- or tree- or block-level basis.
 

@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
   <head>
-    <!-- 2022-07-18 Mon 12:44 -->
+    <!-- 2022-07-18 Mon 13:13 -->
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>&lrm;</title>
@@ -463,12 +463,12 @@
   </head>
   <body>
     <div id="content" class="content">
-      <div id="outline-container-orgacf65f2" class="outline-2">
-        <h2 id="orgacf65f2">Literate Programming Features Testing Notebook</h2>
-        <div class="outline-text-2" id="text-orgacf65f2"></div>
-        <div id="outline-container-orgd46a0da" class="outline-3">
-          <h3 id="orgd46a0da">Introduction</h3>
-          <div class="outline-text-3" id="text-orgd46a0da">
+      <div id="outline-container-org0699b79" class="outline-2">
+        <h2 id="org0699b79">Literate Programming Features Testing Notebook</h2>
+        <div class="outline-text-2" id="text-org0699b79"></div>
+        <div id="outline-container-org905bd5b" class="outline-3">
+          <h3 id="org905bd5b">Introduction</h3>
+          <div class="outline-text-3" id="text-org905bd5b">
             <p>
               This notebook exists to try out various features of literate
               programming in Emacs&rsquo; Org Mode. Specifically, it tests the
@@ -482,9 +482,9 @@
           </div>
         </div>
 
-        <div id="outline-container-org765f74c" class="outline-3">
-          <h3 id="org765f74c">Header Arguments Settings</h3>
-          <div class="outline-text-3" id="text-org765f74c">
+        <div id="outline-container-orgad4cfbb" class="outline-3">
+          <h3 id="orgad4cfbb">Header Arguments Settings</h3>
+          <div class="outline-text-3" id="text-orgad4cfbb">
             <p>Header arguments control a lot of the behavior of:</p>
 
             <ul class="org-ul">
@@ -503,9 +503,9 @@
             <p>It can be set in several places, as we&rsquo;ll see:</p>
           </div>
 
-          <div id="outline-container-orgd5a26b2" class="outline-4">
-            <h4 id="orgd5a26b2">Setting Header Args Globally</h4>
-            <div class="outline-text-4" id="text-orgd5a26b2">
+          <div id="outline-container-org089dc4d" class="outline-4">
+            <h4 id="org089dc4d">Setting Header Args Globally</h4>
+            <div class="outline-text-4" id="text-org089dc4d">
               <p>
                 We currently have the following set as our global configuration:
               </p>
@@ -532,9 +532,9 @@
             </div>
           </div>
 
-          <div id="outline-container-org8d501e8" class="outline-4">
-            <h4 id="org8d501e8">Setting Header Args Per File</h4>
-            <div class="outline-text-4" id="text-org8d501e8">
+          <div id="outline-container-orgaf870db" class="outline-4">
+            <h4 id="orgaf870db">Setting Header Args Per File</h4>
+            <div class="outline-text-4" id="text-orgaf870db">
               <p>
                 You can set header args for the current file using the following
                 syntax at the start of the file:
@@ -583,9 +583,9 @@ console.log(x)
             </div>
           </div>
 
-          <div id="outline-container-org172d0b8" class="outline-4">
-            <h4 id="org172d0b8">Setting Header Args Per Tree</h4>
-            <div class="outline-text-4" id="text-org172d0b8">
+          <div id="outline-container-org4b2bc02" class="outline-4">
+            <h4 id="org4b2bc02">Setting Header Args Per Tree</h4>
+            <div class="outline-text-4" id="text-org4b2bc02">
               <p>
                 You can also add header args to a tree, overriding anything set
                 more generally. You must add these header args as the
@@ -623,9 +623,9 @@ console.log(x)
             </div>
           </div>
 
-          <div id="outline-container-orgd4cecfb" class="outline-4">
-            <h4 id="orgd4cecfb">Setting Header Args Per Code Block</h4>
-            <div class="outline-text-4" id="text-orgd4cecfb">
+          <div id="outline-container-org39b8cb7" class="outline-4">
+            <h4 id="org39b8cb7">Setting Header Args Per Code Block</h4>
+            <div class="outline-text-4" id="text-org39b8cb7">
               <p>
                 You can also set individual code blocks to have their own header
                 args, again overriding anything set more generally.
@@ -663,36 +663,80 @@ console.log(x)
           </div>
         </div>
 
-        <div id="outline-container-org7689afc" class="outline-3">
-          <h3 id="org7689afc">Naming And Re-Using Code Blocks</h3>
-          <div class="outline-text-3" id="text-org7689afc">
+        <div id="outline-container-org4aa39e0" class="outline-3">
+          <h3 id="org4aa39e0">Naming And Re-Using Code Blocks</h3>
+          <div class="outline-text-3" id="text-org4aa39e0">
+            <p>You can name a code block by giving it a name field, like so:</p>
+            <div class="org-src-container">
+              <pre
+                class="src src-org"
+              ><span style="color: #505050;">#+NAME: vars</span>
+<span style="color: #505050;">#+begin_src js</span>
+<span style="color: #00538b; font-weight: bold;">const</span><span style="color: #000000;"> </span><span style="color: #2544bb;">y</span><span style="color: #000000;"> = </span><span style="color: #0000c0;">7</span><span style="color: #000000;">;</span>
+<span style="color: #505050;">#+end_src</span>
+</pre>
+            </div>
+
+            <p>The following block has exactly those headers.</p>
+
             <div class="org-src-container">
               <pre
                 class="src src-js"
-                id="org1b7992d"
+                id="org6fa9ccc"
               ><span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">y</span> = <span style="color: #0000c0;">7</span>;
 </pre>
             </div>
 
+            <p>
+              Then, you can include the code from the named block using
+              <code>noweb</code> syntax:
+            </p>
+
             <div class="org-src-container">
-              <pre class="src src-js">
-<span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">greeting</span> = <span style="color: #145c33;">'hello'</span>;
-console.log(<span style="color: #145c33;">"greeting is: "</span> + greeting)
-console.log(<span style="color: #145c33;">"x is: "</span> + x)
+              <pre
+                class="src src-org"
+              ><span style="color: #505050;">#+begin_src js</span>
+
+<span style="color: #000000;">console.log(</span><span style="color: #145c33;">"y is: "</span><span style="color: #000000;"> + y)</span>
+<span style="color: #505050;">#+end_src</span>
+</pre>
+            </div>
+
+            <p>Which results in the following block and its results:</p>
+
+            <div class="org-src-container">
+              <pre class="src src-js">&lt;&lt;vars&gt;&gt;
 console.log(<span style="color: #145c33;">"y is: "</span> + y)
 </pre>
             </div>
 
+            <pre class="example">
+y is: 7
+</pre
+            >
+
+            <p>
+              An important thing to note is the setup required for this.
+              Globally, we have the following relevant header:
+            </p>
+
             <div class="org-src-container">
-              <pre class="src src-js">
-console.log(y + <span style="color: #0000c0;">3</span>)
+              <pre
+                class="src src-elisp"
+              ><span style="color: #000000;">(</span><span style="color: #00538b; font-weight: bold;">setq</span> <span style="color: #2544bb;">org-babel-default-header-args</span> <span style="color: #00538b; font-weight: bold;">`</span><span style="color: #a8007f;">(</span><span style="color: #005f88;">(</span><span style="color: #721045; font-weight: bold;">:noweb</span> . <span style="color: #145c33;">"strip-export"</span><span style="color: #005f88;">)</span><span style="color: #a8007f;">)</span><span style="color: #000000;">)</span>
 </pre>
             </div>
 
-            <pre class="example">
-10
-</pre
-            >
+            <p>
+              The <code>noweb: strip-export</code> option does two things:
+              allows each block to reference other named blocks, and strips the
+              inclusion of the named block from the export process.
+            </p>
+
+            <p>
+              Whether to export the referenced block can be overridden on a
+              file- or tree- or block-level basis.
+            </p>
           </div>
         </div>
       </div>

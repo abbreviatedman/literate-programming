@@ -105,26 +105,46 @@ console.log(x)
 And voila.
 
 ** Naming And Re-Using Code Blocks
+You can name a code block by giving it a name field, like so:
+#+begin_src org
+,#+NAME: vars
+,#+begin_src js
+const y = 7;
+,#+end_src
+#+end_src
+
+The following block has exactly those headers.
 
 #+NAME: vars
 #+begin_src js
 const y = 7;
 #+end_src
 
+Then, you can include the code from the named block using =noweb= syntax:
+
+#+begin_src org
+,#+begin_src js
+<<vars>>
+console.log("y is: " + y)
+,#+end_src
+#+end_src
+
+Which results in the following block and its results:
+
 #+begin_src js
 <<vars>>
-const greeting = 'hello';
-console.log("greeting is: " + greeting)
-console.log("x is: " + x)
 console.log("y is: " + y)
 #+end_src
 
 #+RESULTS:
+: y is: 7
 
-#+begin_src js
-<<vars>>
-console.log(y + 3)
+An important thing to note is the setup required for this. Globally, we have the following relevant header:
+
+#+begin_src elisp
+(setq org-babel-default-header-args `((:noweb . "strip-export")))
 #+end_src
 
-#+RESULTS:
-: 10
+The =noweb: strip-export= option does two things: allows each block to reference other named blocks, and strips the inclusion of the named block from the export process.
+
+Whether to export the referenced block can be overridden on a file- or tree- or block-level basis.
