@@ -147,4 +147,4 @@ An important thing to note is the setup required for this. Globally, we have the
 
 The =noweb: strip-export= option does two things: allows each block to reference other named blocks, and strips the inclusion of the named block from the export process.
 
-Whether to export the referenced block can be overridden on a file- or tree- or block-level basis. In fact, I did it above so I could print out =<<vars>>= instead of stirpping it out!
+Whether to export the referenced block can be overridden on a file- or tree- or block-level basis. In fact, I did it above so I could print out =<<vars>>= instead of stripping it out!
