@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
   <head>
-    <!-- 2022-07-18 Mon 13:36 -->
+    <!-- 2022-07-18 Mon 13:41 -->
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>&lrm;</title>
@@ -463,12 +463,12 @@
   </head>
   <body>
     <div id="content" class="content">
-      <div id="outline-container-orgd2f2b48" class="outline-2">
-        <h2 id="orgd2f2b48">Literate Programming Features Testing Notebook</h2>
-        <div class="outline-text-2" id="text-orgd2f2b48"></div>
-        <div id="outline-container-org7ebe35d" class="outline-3">
-          <h3 id="org7ebe35d">Introduction</h3>
-          <div class="outline-text-3" id="text-org7ebe35d">
+      <div id="outline-container-org2dc1a86" class="outline-2">
+        <h2 id="org2dc1a86">Literate Programming Features Testing Notebook</h2>
+        <div class="outline-text-2" id="text-org2dc1a86"></div>
+        <div id="outline-container-orge0ad05b" class="outline-3">
+          <h3 id="orge0ad05b">Introduction</h3>
+          <div class="outline-text-3" id="text-orge0ad05b">
             <p>
               This notebook exists to try out various features of literate
               programming in Emacs&rsquo; Org Mode. Specifically, it tests the
@@ -482,9 +482,9 @@
           </div>
         </div>
 
-        <div id="outline-container-org429225f" class="outline-3">
-          <h3 id="org429225f">Header Arguments Settings</h3>
-          <div class="outline-text-3" id="text-org429225f">
+        <div id="outline-container-org06cf38b" class="outline-3">
+          <h3 id="org06cf38b">Header Arguments Settings</h3>
+          <div class="outline-text-3" id="text-org06cf38b">
             <p>Header arguments control a lot of the behavior of:</p>
 
             <ul class="org-ul">
@@ -503,9 +503,9 @@
             <p>It can be set in several places, as we&rsquo;ll see:</p>
           </div>
 
-          <div id="outline-container-orgb187bb9" class="outline-4">
-            <h4 id="orgb187bb9">Setting Header Args Globally</h4>
-            <div class="outline-text-4" id="text-orgb187bb9">
+          <div id="outline-container-org740f521" class="outline-4">
+            <h4 id="org740f521">Setting Header Args Globally</h4>
+            <div class="outline-text-4" id="text-org740f521">
               <p>
                 We currently have the following set as our global configuration:
               </p>
@@ -532,9 +532,9 @@
             </div>
           </div>
 
-          <div id="outline-container-org849ee46" class="outline-4">
-            <h4 id="org849ee46">Setting Header Args Per File</h4>
-            <div class="outline-text-4" id="text-org849ee46">
+          <div id="outline-container-org233a55c" class="outline-4">
+            <h4 id="org233a55c">Setting Header Args Per File</h4>
+            <div class="outline-text-4" id="text-org233a55c">
               <p>
                 You can set header args for the current file using the following
                 syntax at the start of the file:
@@ -552,7 +552,7 @@
               <div class="org-src-container">
                 <pre
                   class="src src-org"
-                ><span style="color: #505050;">#+PROPERTY: header-args :var x=1</span>
+                ><span style="color: #505050;">#+PROPERTY: header-args :var x=2</span>
 </pre>
               </div>
 
@@ -571,7 +571,7 @@ console.log(x)
               </div>
 
               <pre class="example">
-1
+2
 </pre
               >
 
@@ -583,9 +583,9 @@ console.log(x)
             </div>
           </div>
 
-          <div id="outline-container-org3d435a5" class="outline-4">
-            <h4 id="org3d435a5">Setting Header Args Per Tree</h4>
-            <div class="outline-text-4" id="text-org3d435a5">
+          <div id="outline-container-org52edc96" class="outline-4">
+            <h4 id="org52edc96">Setting Header Args Per Tree</h4>
+            <div class="outline-text-4" id="text-org52edc96">
               <p>
                 You can also add header args to a tree, overriding anything set
                 more generally. You must add these header args as the
@@ -605,7 +605,7 @@ console.log(x)
 
               <p>
                 This tree has that header arg, so despite setting
-                <code>x</code> as having a value of <code>1</code> in the file,
+                <code>x</code> as having a value of <code>2</code> in the file,
                 it should have the value of <code>5</code> here.
               </p>
 
@@ -623,9 +623,9 @@ console.log(x)
             </div>
           </div>
 
-          <div id="outline-container-orgc9546cd" class="outline-4">
-            <h4 id="orgc9546cd">Setting Header Args Per Code Block</h4>
-            <div class="outline-text-4" id="text-orgc9546cd">
+          <div id="outline-container-org9fccecf" class="outline-4">
+            <h4 id="org9fccecf">Setting Header Args Per Code Block</h4>
+            <div class="outline-text-4" id="text-org9fccecf">
               <p>
                 You can also set individual code blocks to have their own header
                 args, again overriding anything set more generally.
@@ -663,9 +663,9 @@ console.log(x)
           </div>
         </div>
 
-        <div id="outline-container-orgf7ee937" class="outline-3">
-          <h3 id="orgf7ee937">Naming And Re-Using Code Blocks</h3>
-          <div class="outline-text-3" id="text-orgf7ee937">
+        <div id="outline-container-org960cfe9" class="outline-3">
+          <h3 id="org960cfe9">Naming And Re-Using Code Blocks</h3>
+          <div class="outline-text-3" id="text-org960cfe9">
             <p>You can name a code block by giving it a name field, like so:</p>
             <div class="org-src-container">
               <pre
@@ -677,12 +677,12 @@ console.log(x)
 </pre>
             </div>
 
-            <p>The following block has exactly those headers.</p>
+            <p>The following block has exactly that setup:</p>
 
             <div class="org-src-container">
               <pre
                 class="src src-js"
-                id="org8e75999"
+                id="orga2fb5a5"
               ><span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">y</span> = <span style="color: #0000c0;">7</span>;
 </pre>
             </div>

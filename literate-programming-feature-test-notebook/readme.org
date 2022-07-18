@@ -43,7 +43,7 @@ You can set header args for the current file using the following syntax at the s
 This file currently has the following set:
 
 #+begin_src org
-#+PROPERTY: header-args :var x=1
+#+PROPERTY: header-args :var x=2
 #+end_src
 
 This sets that header arg for the whole file, overriding anything set globally. In this case, this means that we have a value called =x= with the value =1= that we can read in any code block, like so:
@@ -53,7 +53,7 @@ console.log(x)
 #+end_src
 
 #+RESULTS:
-: 1
+: 2
 
 Note that it is a good idea to re-evaluate the file-level properties after adding or changing them, using =org-ctrl-c-ctrl-c=.
 
@@ -72,7 +72,7 @@ This is the syntax:
 :END:
 #+end_src
 
-This tree has that header arg, so despite setting =x= as having a value of =1= in the file, it should have the value of =5= here.
+This tree has that header arg, so despite setting =x= as having a value of =2= in the file, it should have the value of =5= here.
 
 #+begin_src js
 console.log(x)
