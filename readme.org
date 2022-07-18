@@ -1,1 +1,8 @@
+* Literate Programming
 My example literate programming files.
+
+** Usage
+
+Each =readme.org= contains the actual literate programming file.
+
+So that we can see the rendered output, each has been exported to markdown for GitHub and to HTML to perhaps be hosted somewhere at some point.

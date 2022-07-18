@@ -1,5 +1,4 @@
 #+PROPERTY: header-args
-#+EXPORT_FILE_NAME: readme
 
 * Literate Programming Features Testing Notebook
 ** Introduction
