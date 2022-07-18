@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
   <head>
-    <!-- 2022-07-18 Mon 13:41 -->
+    <!-- 2022-07-18 Mon 13:54 -->
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>&lrm;</title>
@@ -463,12 +463,12 @@
   </head>
   <body>
     <div id="content" class="content">
-      <div id="outline-container-org2dc1a86" class="outline-2">
-        <h2 id="org2dc1a86">Literate Programming Features Testing Notebook</h2>
-        <div class="outline-text-2" id="text-org2dc1a86"></div>
-        <div id="outline-container-orge0ad05b" class="outline-3">
-          <h3 id="orge0ad05b">Introduction</h3>
-          <div class="outline-text-3" id="text-orge0ad05b">
+      <div id="outline-container-orgf4729b3" class="outline-2">
+        <h2 id="orgf4729b3">Literate Programming Features Testing Notebook</h2>
+        <div class="outline-text-2" id="text-orgf4729b3"></div>
+        <div id="outline-container-org9b1c162" class="outline-3">
+          <h3 id="org9b1c162">Introduction</h3>
+          <div class="outline-text-3" id="text-org9b1c162">
             <p>
               This notebook exists to try out various features of literate
               programming in Emacs&rsquo; Org Mode. Specifically, it tests the
@@ -482,9 +482,9 @@
           </div>
         </div>
 
-        <div id="outline-container-org06cf38b" class="outline-3">
-          <h3 id="org06cf38b">Header Arguments Settings</h3>
-          <div class="outline-text-3" id="text-org06cf38b">
+        <div id="outline-container-orgf55d9c8" class="outline-3">
+          <h3 id="orgf55d9c8">Header Arguments Settings</h3>
+          <div class="outline-text-3" id="text-orgf55d9c8">
             <p>Header arguments control a lot of the behavior of:</p>
 
             <ul class="org-ul">
@@ -503,9 +503,9 @@
             <p>It can be set in several places, as we&rsquo;ll see:</p>
           </div>
 
-          <div id="outline-container-org740f521" class="outline-4">
-            <h4 id="org740f521">Setting Header Args Globally</h4>
-            <div class="outline-text-4" id="text-org740f521">
+          <div id="outline-container-orgc9d8902" class="outline-4">
+            <h4 id="orgc9d8902">Setting Header Args Globally</h4>
+            <div class="outline-text-4" id="text-orgc9d8902">
               <p>
                 We currently have the following set as our global configuration:
               </p>
@@ -532,9 +532,9 @@
             </div>
           </div>
 
-          <div id="outline-container-org233a55c" class="outline-4">
-            <h4 id="org233a55c">Setting Header Args Per File</h4>
-            <div class="outline-text-4" id="text-org233a55c">
+          <div id="outline-container-org053ec6a" class="outline-4">
+            <h4 id="org053ec6a">Setting Header Args Per File</h4>
+            <div class="outline-text-4" id="text-org053ec6a">
               <p>
                 You can set header args for the current file using the following
                 syntax at the start of the file:
@@ -583,9 +583,9 @@ console.log(x)
             </div>
           </div>
 
-          <div id="outline-container-org52edc96" class="outline-4">
-            <h4 id="org52edc96">Setting Header Args Per Tree</h4>
-            <div class="outline-text-4" id="text-org52edc96">
+          <div id="outline-container-orgf2d6cdd" class="outline-4">
+            <h4 id="orgf2d6cdd">Setting Header Args Per Tree</h4>
+            <div class="outline-text-4" id="text-orgf2d6cdd">
               <p>
                 You can also add header args to a tree, overriding anything set
                 more generally. You must add these header args as the
@@ -623,9 +623,9 @@ console.log(x)
             </div>
           </div>
 
-          <div id="outline-container-org9fccecf" class="outline-4">
-            <h4 id="org9fccecf">Setting Header Args Per Code Block</h4>
-            <div class="outline-text-4" id="text-org9fccecf">
+          <div id="outline-container-orgbf2f75f" class="outline-4">
+            <h4 id="orgbf2f75f">Setting Header Args Per Code Block</h4>
+            <div class="outline-text-4" id="text-orgbf2f75f">
               <p>
                 You can also set individual code blocks to have their own header
                 args, again overriding anything set more generally.
@@ -663,9 +663,9 @@ console.log(x)
           </div>
         </div>
 
-        <div id="outline-container-org960cfe9" class="outline-3">
-          <h3 id="org960cfe9">Naming And Re-Using Code Blocks</h3>
-          <div class="outline-text-3" id="text-org960cfe9">
+        <div id="outline-container-org881f7fe" class="outline-3">
+          <h3 id="org881f7fe">Naming And Re-Using Code Blocks</h3>
+          <div class="outline-text-3" id="text-org881f7fe">
             <p>You can name a code block by giving it a name field, like so:</p>
             <div class="org-src-container">
               <pre
@@ -682,14 +682,15 @@ console.log(x)
             <div class="org-src-container">
               <pre
                 class="src src-js"
-                id="orga2fb5a5"
+                id="org0826fae"
               ><span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">y</span> = <span style="color: #0000c0;">7</span>;
 </pre>
             </div>
 
             <p>
               Then, you can include the code from the named block using
-              <code>noweb</code> syntax:
+              <code>noweb</code> syntax of using
+              <code>&lt;&lt;[name of block]&gt;&gt;</code>:
             </p>
 
             <div class="org-src-container">
@@ -735,7 +736,9 @@ y is: 7
 
             <p>
               Whether to export the referenced block can be overridden on a
-              file- or tree- or block-level basis.
+              file- or tree- or block-level basis. In fact, I did it above so I
+              could print out <code>&lt;&lt;vars&gt;&gt;</code> instead of
+              stirpping it out!
             </p>
           </div>
         </div>
