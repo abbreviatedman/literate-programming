@@ -1,4 +1,4 @@
-#+PROPERTY: header-args
+#+PROPERTY: header-args :var x=1
 
 * Literate Programming Features Testing Notebook
 ** Introduction
