@@ -6,6 +6,7 @@ This notebook exists to try out various features of literate programming in Emac
 
 - using header arguments
 - naming and re-using a code block
+- tangling
 
 ** Header Arguments Settings
 Header arguments control a lot of the behavior of:
@@ -129,7 +130,7 @@ console.log("y is: " + y)
 ,#+end_src
 #+end_src
 
-Which results in the following block and its results:
+Which gives you the following block and its results:
 
 #+begin_src js
 <<vars>>

@@ -1,0 +1,19 @@
+* For Loop Efficiency
+
+** A Gentle Introduction To For Loops
+In a standard =for= loop, you have an `i` variable that is, most simply, a counter.
+
+#+begin_src js -n :tangle for-loop-example-1.js
+for (let i = 1; i <= 5; i++) {
+  console.log(i);
+}
+#+end_src
+
+#+RESULTS:
+: 1
+: 2
+: 3
+: 4
+: 5
+
+What's happening here is that we have a pretty

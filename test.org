@@ -1,0 +1,22 @@
+#+begin_src elisp :results replace value
+(let
+    ((display-buffer-alist
+      (list (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))))
+  display-buffer-alist)
+#+end_src
+
+#+RESULTS:
+    : "((\"\\\\*Async Shell Command\\\\*.*\" display-buffer-no-window))
+    : "
+
+#+begin_src elisp :results replace value
+(let
+    ((display-buffer-alist
+      '('("\\*Async Shell Command\\*.*" '(#'display-buffer-no-window)))))
+  display-buffer-alist)
+#+end_src
+
+#+RESULTS:
+: "('(\"\\\\*Async Shell Command\\\\*.*\"
+:    '(#'display-buffer-no-window)))
+: "

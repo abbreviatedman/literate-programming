@@ -1,26 +1,21 @@
-
-
 # Literate Programming Features Testing Notebook
-
 
 ## Introduction
 
 This notebook exists to try out various features of literate programming in Emacs&rsquo; Org Mode. Specifically, it tests the results of:
 
--   using header arguments
--   naming and re-using a code block
-
+- using header arguments
+- naming and re-using a code block
 
 ## Header Arguments Settings
 
 Header arguments control a lot of the behavior of:
 
--   evaluation—how the code is run and how the results are printed
--   exporting—how the code is exported to another format, like HTML
--   tangling—how and where the code goes when made into an executable
+- evaluation—how the code is run and how the results are printed
+- exporting—how the code is exported to another format, like HTML
+- tangling—how and where the code goes when made into an executable
 
 It can be set in several places, as we&rsquo;ll see:
-
 
 ### Setting Header Args Globally
 
@@ -32,8 +27,7 @@ We currently have the following set as our global configuration:
                                           (:session . "none")
                                           (:eval . "no-export")))
 
-A *reasonably good* resource to see what each of those do is [the docs for header args](https://org-babel.readthedocs.io/en/latest/header-args/).
-
+A _reasonably good_ resource to see what each of those do is [the docs for header args](https://org-babel.readthedocs.io/en/latest/header-args/).
 
 ### Setting Header Args Per File
 
@@ -53,10 +47,9 @@ This sets that header arg for the whole file, overriding anything set globally. 
 
 Note that it is a good idea to re-evaluate the file-level properties after adding or changing them, using `org-ctrl-c-ctrl-c`.
 
-
 ### Setting Header Args Per Tree
 
-You can also add header args to a tree, overriding anything set more generally. You must add these header args as the *very* first child of the tree.
+You can also add header args to a tree, overriding anything set more generally. You must add these header args as the _very_ first child of the tree.
 
 This is the syntax:
 
@@ -69,7 +62,6 @@ This tree has that header arg, so despite setting `x` as having a value of `2` i
     console.log(x)
 
     5
-
 
 ### Setting Header Args Per Code Block
 
@@ -88,7 +80,6 @@ The following code block has its header arg set exactly like the above.
     8
 
 And voila.
-
 
 ## Naming And Re-Using Code Blocks
 
@@ -112,7 +103,6 @@ Then, you can include the code from the named block using `noweb` syntax of usin
 
 Which results in the following block and its results:
 
-    
     console.log("y is: " + y)
 
     y is: 7
@@ -124,4 +114,3 @@ An important thing to note is the setup required for this. Globally, we have the
 The `noweb: strip-export` option does two things: allows each block to reference other named blocks, and strips the inclusion of the named block from the export process.
 
 Whether to export the referenced block can be overridden on a file- or tree- or block-level basis. In fact, I did it above so I could print out `<<vars>>` instead of stirpping it out!
-
