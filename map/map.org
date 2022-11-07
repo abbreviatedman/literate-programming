@@ -1,5 +1,7 @@
+#+PROPERTY: header-args :tangle no
 * Map Operations
 
+** Warmup
 Let's say we've got the following array:
 
 #+NAME: people
@@ -24,3 +26,160 @@ console.log(attendanceQuestions)
 :   'Is Tim here today?',
 :   'Is Mariella here today?'
 : ]
+
+
+** Nitter
+#+NAME: imports
+#+begin_src js
+const colors = require('colors');
+#+end_src
+
+
+#+NAME: tweets
+#+begin_src js
+const tweets = [
+  {
+    username: "dril",
+    text: "Update from the good time line—Bacion is legal to eat at work thanks to President Banksy in the whitehouse, now known as the star wars house",
+    displayName: "wint",
+    postId: 2,
+    retweets: 1200,
+    likes: 8200,
+    comments: 28,
+  },
+  {
+    username: "Leemanish",
+    displayName: "blake",
+    text: "Sick of having to go to 2 different huts to buy pizza & sunglasses.",
+    postId: 3,
+    retweets: 2900,
+    likes: 6300,
+    comments: 210,
+  },
+  {
+    username: "queer_queenie",
+    displayName: "Queenie",
+    text: "i hold a gender reveal party. all my relatives wait as i pull off the cake cover. the icing says \"gender is a spectrum\". it's too late, i have the powerpoint up",
+    postId: 4,
+    retweets: 16900,
+    likes: 70600,
+    comments: 730,
+  },
+  {
+    username: "phranqueigh",
+    displayName: "Frankie Zelnick",
+    text: "How dare you call me mentally unstable, on this, the day of my cat's quinceanera.",
+    postId: 5,
+    retweets: 5000,
+    likes: 9300,
+    comments: 121,
+  },
+];
+#+end_src
+
+#+RESULTS: tweets
+
+#+NAME: getDisplayTweets
+#+begin_src js
+const getDisplayTweets = (tweet) => (`${tweet.displayName}
+@${tweet.username}
+
+${tweet.text}
+
+${tweet.retweets} Retweets   ${tweet.likes} Likes   ${tweet.comments} Comments`)
+#+end_src
+
+#+NAME: getDisplayTweetsColor
+#+begin_src js
+const getDisplayTweets = (tweet) => (`${colors.bold(tweet.displayName)}
+@${tweet.username}
+
+${tweet.text}
+
+${colors.bold(tweet.retweets)} Retweets   ${colors.bold(tweet.likes)} Likes   ${colors.bold(tweet.comments)} Comments`)
+#+end_src
+
+#+RESULTS: getDisplayTweetsColor
+
+#+begin_src js
+<<tweets>>
+<<getDisplayTweets>>
+const tweet = getDisplayTweets(tweets[0]);
+console.log(tweet)
+#+end_src
+
+#+RESULTS:
+: wint
+: @dril
+:
+: Update from the good time line—Bacion is legal to eat at work thanks to President Banksy in the whitehouse, now known as the star wars house
+:
+: 1200 Retweets   8200 Likes   28 Comments
+
+
+#+begin_src js 
+<<tweets>>
+
+const tweetStrings = [];
+for (let i = 0; i < tweets.length; i++) {
+  const tweet = tweets[i];
+  const tweetString = `${tweet.displayName}
+@${tweet.username}
+
+${tweet.text}
+
+${tweet.retweets} Retweets   ${tweet.likes} Likes   ${tweet.comments} Comments`
+  tweetStrings.push(tweetString);
+}
+
+tweetStrings.forEach((tweetString) => console.log(tweetString + '\n\n'))
+#+end_src
+
+#+RESULTS:
+#+begin_example
+wint
+@dril
+
+Update from the good time line—Bacion is legal to eat at work thanks to President Banksy in the whitehouse, now known as the star wars house
+
+1200 Retweets   8200 Likes   28 Comments
+
+
+blake
+@Leemanish
+
+Sick of having to go to 2 different huts to buy pizza & sunglasses.
+
+2900 Retweets   6300 Likes   210 Comments
+
+
+Queenie
+@queer_queenie
+
+i hold a gender reveal party. all my relatives wait as i pull off the cake cover. the icing says "gender is a spectrum". it's too late, i have the powerpoint up
+
+16900 Retweets   70600 Likes   730 Comments
+
+
+Frankie Zelnick
+@phranqueigh
+
+How dare you call me mentally unstable, on this, the day of my cat's quinceanera.
+
+5000 Retweets   9300 Likes   121 Comments
+
+
+#+end_example
+
+#+begin_src js :tangle nitter.js
+<<imports>>
+
+<<tweets>>
+
+<<getDisplayTweetsColor>>
+
+const displayTweets = tweets.map(getDisplayTweets);
+displayTweets.forEach((displayTweet) => console.log(displayTweet))
+#+end_src
+
+#+RESULTS:
