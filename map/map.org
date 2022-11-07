@@ -1,1 +1,26 @@
 * Map Operations
+
+Let's say we've got the following array:
+
+#+NAME: people
+#+begin_src js
+const people = ["Colin", "Tim", "Mariella"];
+#+end_src
+
+#+NAME: mapped-people
+#+begin_src js
+<<people>>
+const attendanceQuestions = people.map((person) => `Is ${person} here today?`)
+#+end_src
+
+#+begin_src js
+<<mapped-people>>
+console.log(attendanceQuestions)
+#+end_src
+
+#+RESULTS:
+: [
+:   'Is Colin here today?',
+:   'Is Tim here today?',
+:   'Is Mariella here today?'
+: ]
