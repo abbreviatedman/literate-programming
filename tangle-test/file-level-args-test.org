@@ -1,0 +1,45 @@
+#+PROPERTY: header-args :tangle test-6.js
+* Tangling All Blocks From A File To The Same Destination
+
+** Basic Test
+The following code is at the very very top of this file:
+
+#+begin_src org :tangle no
+#+PROPERTY: header-args :tangle test-6.js
+#+end_src
+
+This means that all code blocks in this file will by default tangle to =test-6.js=.
+#+begin_src org :tangle no
+,#+begin_src js
+console.log("Set at the file level!");
+,#+end_src
+
+,#+begin_src js
+console.log(
+  "Another block whose tangle destination is set at the file level, so that's cool."
+);
+,#+end_src
+#+end_src
+
+#+begin_src js :exports none
+console.log("Yes!! Set at the file level!");
+#+end_src
+
+#+begin_src js :exports none
+console.log(
+  "Another block whose tangle destination is set at the file level, so that's cool."
+);
+#+end_src
+
+** Testing Overriding This
+The following block will tangle to a different file, since its block-level tangling will take precedence:
+
+#+begin_src org :tangle no
+,#+begin_src js :tangle test-7.js
+console.log("This block will tangle to test-7.js instead.");
+,#+end_src
+#+end_src
+
+#+begin_src js :tangle test-7.js :exports none
+console.log("This block will tangle to test-7.js instead.");
+#+end_src

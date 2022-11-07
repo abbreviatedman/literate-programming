@@ -1,0 +1,15 @@
+* Tangle Yes Test
+
+This is a test of defaulting to tangling to the file of the same name.
+
+If it works, there will be a =tangle-yes-test.js= file.
+
+#+begin_src js
+console.log("It worked!");
+#+end_src
+
+And if this works, we can turn it off for source blocks.
+
+#+begin_src js :tangle no
+console.log("It works?");
+#+end_src

@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
   <head>
-    <!-- 2022-07-30 Sat 13:10 -->
+    <!-- 2022-07-30 Sat 15:11 -->
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>&lrm;</title>
@@ -463,24 +463,27 @@
   </head>
   <body>
     <div id="content" class="content">
-      <div id="outline-container-org1b175a0" class="outline-2">
-        <h2 id="org1b175a0">Tangle Test Notebook</h2>
-        <div class="outline-text-2" id="text-org1b175a0">
+      <div id="outline-container-org9034921" class="outline-2">
+        <h2 id="org9034921">Tangle Test Notebook</h2>
+        <div class="outline-text-2" id="text-org9034921">
           <p>A notebook for testing Org&rsquo;s tangle features.</p>
 
           <p>We will test the ability to:</p>
 
           <ul class="org-ul">
-            <li>Tangle to a file.</li>
+            <li>Tangle a block to a file.</li>
+            <li>Tangle multiple blocks to one file.</li>
+            <li>Control the order of blocks in the destination file.</li>
             <li>Tangle to multiple files from the same Org file.</li>
-            <li>Specify which file to tangle to in various ways.</li>
+            <li>Specify the tangle destination file in various ways.</li>
+            <li>Specify what to tangle vs. export.</li>
             <li>Tangle to one file from multiple Org files.</li>
           </ul>
         </div>
 
-        <div id="outline-container-org4371f08" class="outline-3">
-          <h3 id="org4371f08">About Source Blocks</h3>
-          <div class="outline-text-3" id="text-org4371f08">
+        <div id="outline-container-orgf5fe1f9" class="outline-3">
+          <h3 id="orgf5fe1f9">About Source Blocks</h3>
+          <div class="outline-text-3" id="text-orgf5fe1f9">
             <p>
               There may be a cleaner way to do this, but I will include both the
               source blocks with their results and the org code for
@@ -488,12 +491,26 @@
               results and actually tangle it, as well as demonstrate how to do
               it in your own org files.
             </p>
+
+            <p>
+              You should, however, only see the blocks that actually get tangled
+              by examining this org file. They should <i>not</i> be exported to
+              any rendered version.
+            </p>
+
+            <p>
+              While visiting this buffer, simply run
+              <code>org-babel-tangle</code> to tangle <i>all</i> of the
+              non-rendered source blocks in the file to the file listed in their
+              respective source block headers. (I&rsquo;ve already done so in
+              this repo.)
+            </p>
           </div>
         </div>
 
-        <div id="outline-container-orgdddac65" class="outline-3">
-          <h3 id="orgdddac65">Tangling To A File</h3>
-          <div class="outline-text-3" id="text-orgdddac65">
+        <div id="outline-container-org5befbe3" class="outline-3">
+          <h3 id="org5befbe3">Tangling To A File</h3>
+          <div class="outline-text-3" id="text-org5befbe3">
             <p>
               The below source block will tangle the code inside it to
               `test-1.js`.
@@ -508,36 +525,46 @@
 <span style="color: #505050;">#+end_src</span>
 </pre>
             </div>
-
-            <p>And this is what it renders and outputs:</p>
-
-            <div class="org-src-container">
-              <pre
-                class="src src-js"
-              ><span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">greeting</span> = <span style="color: #145c33;">"hi"</span>;
-console.log(greeting);
-</pre>
-            </div>
-
-            <pre class="example">
-hi
-</pre
-            >
-
-            <p>
-              While visiting this buffer, simply run
-              <code>org-babel-tangle</code> to tangle <i>all</i> source blocks
-              in the file to the file listed in their respective source block
-              headers.
-            </p>
           </div>
         </div>
 
-        <div id="outline-container-org4fc00bd" class="outline-3">
-          <h3 id="org4fc00bd">Tangling To Multiple Files</h3>
-          <div class="outline-text-3" id="text-org4fc00bd">
+        <div id="outline-container-orgca3bdf2" class="outline-3">
+          <h3 id="orgca3bdf2">Tangling Multiple Blocks To One File</h3>
+          <div class="outline-text-3" id="text-orgca3bdf2">
             <p>
-              We can also tangle different source blocks to different files.
+              The following block would <i>also</i> tangle to
+              <code>test-1.js</code>, but, since it comes second in this file,
+              it will tangle after the first source block.
+            </p>
+
+            <div class="org-src-container">
+              <pre
+                class="src src-org"
+              ><span style="color: #505050;">#+begin_src js :tangle test-1.js</span>
+<span style="color: #000000;">console.log(</span><span style="color: #145c33;">"Welcome to literate programming!"</span><span style="color: #000000;">);</span>
+<span style="color: #505050;">#+end_src</span>
+</pre>
+            </div>
+          </div>
+        </div>
+
+        <div id="outline-container-orgf3167ef" class="outline-3">
+          <h3 id="orgf3167ef">Controlling Tangling Order</h3>
+        </div>
+        <div id="outline-container-org0860065" class="outline-3">
+          <h3 id="org0860065">Tangling To Multiple Files</h3>
+          <div class="outline-text-3" id="text-org0860065">
+            <p>
+              We can also tangle different source blocks to different files. The
+              <code>:tangle</code> header argument on each source block
+              specifies which file to tangle to.
+            </p>
+
+            <p>
+              If you tangle these files (which I&rsquo;ve already done in this
+              repo), you&rsquo;ll have a <code>test-2.js</code> file with the
+              lines of code from the first block and a
+              <code>test-3.js</code> file with the code from the second.
             </p>
 
             <div class="org-src-container">
@@ -554,35 +581,199 @@ hi
 <span style="color: #505050;">#+end_src</span>
 </pre>
             </div>
-
-            <div class="org-src-container">
-              <pre
-                class="src src-js"
-              ><span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">greeting</span> = <span style="color: #145c33;">"oh hello"</span>;
-console.log(greeting);
-</pre>
-            </div>
-
-            <div class="org-src-container">
-              <pre
-                class="src src-js"
-              ><span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">greeting</span> = <span style="color: #145c33;">"oh hi there"</span>;
-console.log(greeting);
-</pre>
-            </div>
-
-            <pre class="example">
-oh hi there
-</pre
-            >
           </div>
         </div>
 
-        <div id="outline-container-org6b67b85" class="outline-3">
-          <h3 id="org6b67b85">Ways To Specify Files To Tangle To</h3>
-          <div class="outline-text-3" id="text-org6b67b85">
-            <p>If a source block does no t</p>
+        <div id="outline-container-org3e1340f" class="outline-3">
+          <h3 id="org3e1340f">Ways To Specify Files To Tangle To</h3>
+          <div class="outline-text-3" id="text-org3e1340f"></div>
+          <div id="outline-container-org9b47855" class="outline-4">
+            <h4 id="org9b47855">A Warning On <code>:tangle no</code>.</h4>
+            <div class="outline-text-4" id="text-org9b47855">
+              <p>I&rsquo;ve run into a bug when trying to set this behavior:</p>
+
+              <ul class="org-ul">
+                <li>
+                  Blocks tangle by default to the filename of the file (<code
+                    >:tangle yes</code
+                  >).
+                </li>
+                <li>
+                  Any blocks to tangle elsewhere are set with an explicit
+                  filename (<code>:tangle [filename]</code>)
+                </li>
+                <li>
+                  Any blocks that shouldn&rsquo;t be tangled are simply set not
+                  to (<code>:tangle no</code>).
+                </li>
+              </ul>
+
+              <p>
+                The result of this setup, for me, has been an error, where Babel
+                tries to tangle to the actual file <i>called</i>
+                <code>yes</code> or <code>no</code>. Something appears to be
+                broken, with Org or (more likely!) my system, where
+                <code>yes</code> and <code>no</code> are not recognized as
+                options, but rather filenames.
+              </p>
+
+              <p>
+                As a result, this section will specify the other way to set this
+                up: defaulting to not tangling unless explicitly tangled. Which,
+                in fact, turns out to be a better setup, in my limited
+                experience!
+              </p>
+            </div>
+
+            <ul class="org-ul">
+              <li>
+                <a id="org2a07102"></a>Update To The Above!<br />
+                <div class="outline-text-5" id="text-org2a07102">
+                  <p>
+                    It appears to be working now. I have set
+                    <code>:tangle yes</code> in the Emacs-wide header args and
+                    had it work, and have also set it on the block level to
+                    <code>:tangle no</code> and had that excluded.
+                  </p>
+
+                  <p>
+                    However, I continue to think the below setup is better, so
+                    we&rsquo;ll stick to that!
+                  </p>
+                </div>
+              </li>
+            </ul>
           </div>
+
+          <div id="outline-container-org4b4da59" class="outline-4">
+            <h4 id="org4b4da59">My Setup</h4>
+            <div class="outline-text-4" id="text-org4b4da59">
+              <p>
+                I have not changed the default header args for Babel
+                (<code>org-babel-default-header-args</code>), and so
+                <code>:tangle no</code> remains the default setting.
+              </p>
+
+              <p>
+                When I want to tangle a block, the simplest way is to specify at
+                the block level as to which file to tangle to. (See above
+                examples.)
+              </p>
+
+              <p>
+                However, this may grow tiresome if every or even most blocks in
+                a file will tangle to the same location. In that case, it could
+                be set at the tree or file level.
+              </p>
+            </div>
+          </div>
+
+          <div id="outline-container-orgbca24a1" class="outline-4">
+            <h4 id="orgbca24a1">Tangle Specificity Precedence</h4>
+            <div class="outline-text-4" id="text-orgbca24a1">
+              <p>
+                This is the order of specificity, with each step lower down the
+                list becoming <i>more</i> specific and
+                <i>overriding any header arguments set above it</i>. Please note
+                that
+                <b>this order applies to every single org babel header arg</b>.
+              </p>
+
+              <ol class="org-ol">
+                <li>
+                  Default header arguments shipped with Org mode (changeable in
+                  your config file).
+                </li>
+                <li>
+                  Default languages-specific header arguments shipped with Org
+                  mode (also changeable in your config file).
+                </li>
+                <li>Buffer (or file) level header arguments.</li>
+                <li>Subtree header arguments.</li>
+                <li>Code block header arguments.</li>
+                <li>Call line header arguments.</li>
+              </ol>
+
+              <p>
+                Below you&rsquo;ll find some examples of different ways to set
+                it.
+              </p>
+            </div>
+          </div>
+          <div id="outline-container-org651a4ec" class="outline-4">
+            <h4 id="org651a4ec">Setting Destination File For A Tree</h4>
+            <div class="outline-text-4" id="text-org651a4ec">
+              <p>
+                This tree is set to always tangle to <code>test-4.js</code>, so
+                anything under this heading will tangle to that file. We set
+                that directly under the current heading with the following
+                property drawer:
+              </p>
+
+              <div class="org-src-container">
+                <pre
+                  class="src src-org"
+                ><span style="color: #505050;">:PROPERTIES:</span>
+<span style="color: #505050;">:header-args:</span> <span style="color: #093060;">:tangle test-4.js</span>
+<span style="color: #505050;">:END:</span>
+</pre>
+              </div>
+
+              <p>
+                With that set, the following two blocks will tangle to that file
+                as long as they don&rsquo;t specify a different tangling setup.
+              </p>
+
+              <div class="org-src-container">
+                <pre
+                  class="src src-org"
+                ><span style="color: #505050;">#+begin_src js</span>
+<span style="color: #00538b; font-weight: bold;">const</span><span style="color: #000000;"> </span><span style="color: #2544bb;">x</span><span style="color: #000000;"> = </span><span style="color: #0000c0;">3</span><span style="color: #000000;">;</span>
+<span style="color: #000000;">console.log({ x });</span>
+<span style="color: #505050;">#+end_src</span>
+
+<span style="color: #505050;">#+begin_src js</span>
+<span style="color: #00538b; font-weight: bold;">const</span><span style="color: #000000;"> </span><span style="color: #2544bb;">y</span><span style="color: #000000;"> = </span><span style="color: #0000c0;">6</span><span style="color: #000000;">;</span>
+<span style="color: #000000;">console.log(</span><span style="color: #145c33;">"y is: "</span><span style="color: #000000;"> + y);</span>
+<span style="color: #505050;">#+end_src</span>
+</pre>
+              </div>
+
+              <p>
+                But the following block specifies a different file, and
+                block-level is more specific, so it will tangle to
+                <code>test-5.js</code>.
+              </p>
+
+              <div class="org-src-container">
+                <pre
+                  class="src src-org"
+                ><span style="color: #505050;">#+begin_src js :tangle test-5.js</span>
+<span style="color: #000000;">console.log(</span><span style="color: #145c33;">"We will tangle to a different file!"</span><span style="color: #000000;">);</span>
+<span style="color: #505050;">#+end_src</span>
+</pre>
+              </div>
+            </div>
+          </div>
+
+          <div id="outline-container-org432e527" class="outline-4">
+            <h4 id="org432e527">
+              Setting Destination File At The Buffer/File Level
+            </h4>
+            <div class="outline-text-4" id="text-org432e527">
+              <p>
+                Since this requires a different file, I&rsquo;ve created
+                <a href="./file-level-args-test.html"
+                  >a different file for testing this</a
+                >.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org932cd15" class="outline-3">
+          <h3 id="org932cd15">
+            Tangling From Multiple Files To The Same Destination
+          </h3>
         </div>
       </div>
     </div>

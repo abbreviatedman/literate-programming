@@ -15,6 +15,10 @@ We will test the ability to:
 
 There may be a cleaner way to do this, but I will include both the source blocks with their results and the org code for /making/ those source blocks. This is so that you can see its results and actually tangle it, as well as demonstrate how to do it in your own org files.
 
+You should, however, only see the blocks that actually get tangled by examining this org file. They should /not/ be exported to any rendered version.
+
+While visiting this buffer, simply run =org-babel-tangle= to tangle /all/  of the non-rendered source blocks in the file to the file listed in their respective source block headers. (I've already done so in this repo.)
+
 ** Tangling To A File
 The below source block will tangle the code inside it to `test-1.js`.
 
@@ -25,14 +29,10 @@ console.log(greeting);
 ,#+end_src
 #+end_src
 
-And here is the actual block, so that tangling works:
-
-#+begin_src js :tangle test-1.js
+#+begin_src js :tangle test-1.js :exports none
 const greeting = "hi";
 console.log(greeting);
 #+end_src
-
-While visiting this buffer, simply run =org-babel-tangle= to tangle /all/ source blocks in the file to the file listed in their respective source block headers. (I've already done this in this repo.)
 
 ** Tangling Multiple Blocks To One File
 The following block would /also/ tangle to =test-1.js=, but, since it comes second in this file, it will tangle after the first source block.
@@ -43,13 +43,17 @@ console.log("Welcome to literate programming!");
 ,#+end_src
 #+end_src
 
-And here is the actual block itself so we can tangle it.
-
-#+begin_src js :tangle test-1.js
+#+begin_src js :tangle test-1.js :exports none
 console.log("Welcome to literate programming!");
 #+end_src
 
 ** Controlling Tangling Order
+*** TODO (and may be impossible without some wild work!)
+**** NEXT Check if there's a built-in way.
+**** TODO Check if there's a way to do it by appending from different org files.
+**** TODO Check if there's a way to do it via setting the order via a lisp function
+- Possibly with an elisp variable.
+- Or, even better, an org property in some kind of index file.
 ** Tangling To Multiple Files
 We can also tangle different source blocks to different files. The =:tangle= header argument on each source block specifies which file to tangle to.
 
@@ -67,19 +71,108 @@ console.log(greeting);
 ,#+end_src
 #+end_src
 
-And here are the actual source blocks, so that a tangle on this file will actually tangle:
-
-#+begin_src js :tangle test-2.js
+#+begin_src js :tangle test-2.js :exports none
 const greeting = "oh hello";
 console.log(greeting);
 #+end_src
 
-#+begin_src js :tangle test-3.js
+#+begin_src js :tangle test-3.js :exports none
 const greeting = "oh hi there";
 console.log(greeting);
 #+end_src
 
 ** Ways To Specify Files To Tangle To
-If a source block does not specify where to tangle to,
 
+*** A Warning On =:tangle no=.
+I've run into a bug when trying to set this behavior:
+
+- Blocks tangle by default to the filename of the file (=:tangle yes=).
+- Any blocks to tangle elsewhere are set with an explicit filename (=:tangle [filename]=)
+- Any blocks that shouldn't be tangled are simply set not to (=:tangle no=).
+
+The result of this setup, for me, has been an error, where Babel tries to tangle to the actual file /called/ =yes= or =no=. Something appears to be broken, with Org or (more likely!) my system, where =yes= and =no= are not recognized as options, but rather filenames.
+
+As a result, this section will specify the other way to set this up: defaulting to not tangling unless explicitly tangled. Which, in fact, turns out to be a better setup, in my limited experience!
+
+**** Update To The Above!
+It appears to be working now. I have set =:tangle yes= in the Emacs-wide header args and had it work, and have also set it on the block level to =:tangle no= and had that excluded.
+
+However, I continue to think the below setup is better, so we'll stick to that!
+
+*** My Setup
+
+I have not changed the default header args for Babel (=org-babel-default-header-args=), and so =:tangle no= remains the default setting.
+
+When I want to tangle a block, the simplest way is to specify at the block level as to which file to tangle to. (See above examples.)
+
+However, this may grow tiresome if every or even most blocks in a file will tangle to the same location. In that case, it could be set at the tree or file level.
+
+*** Tangle Specificity Precedence
+This is the order of specificity, with each step lower down the list becoming /more/ specific and /overriding any header arguments set above it/. Please note that *this order applies to every single org babel header arg*.
+
+1. Default header arguments shipped with Org mode (changeable in your config file).
+2. Default languages-specific header arguments  shipped with Org mode (also changeable in your config file).
+3. Buffer (or file) level header arguments.
+4. Subtree header arguments.
+5. Code block header arguments.
+6. Call line header arguments.
+
+Below you'll find some examples of different ways to set it.
+*** Setting Destination File For A Tree
+:PROPERTIES:
+:header-args: :tangle test-4.js
+:END:
+This tree is set to always tangle to =test-4.js=, so anything under this heading will tangle to that file. We set that directly under the current heading with the following property drawer:
+
+#+begin_src org :tangle no
+:PROPERTIES:
+:header-args: :tangle test-4.js
+:END:
+#+end_src
+
+With that set, the following two blocks will tangle to that file as long as they don't specify a different tangling setup.
+
+#+begin_src org :tangle no
+,#+begin_src js
+const x = 3;
+console.log({ x });
+,#+end_src
+
+,#+begin_src js
+const y = 6;
+console.log("y is: " + y);
+,#+end_src
+#+end_src
+
+But the following block specifies a different file, and block-level is more specific, so it will tangle to =test-5.js=.
+
+#+begin_src org :tangle no
+,#+begin_src js :tangle test-5.js
+console.log("We will tangle to a different file!");
+,#+end_src
+#+end_src
+
+#+begin_src js :exports none
+const x = 3;
+console.log({ x });
+#+end_src
+
+#+begin_src js :exports none
+const y = 6;
+console.log("y is: " + y);
+#+end_src
+
+#+begin_src js :tangle test-5.js :exports none
+console.log("We will tangle to a different file!");
+#+end_src
+*** Setting Destination File At The Buffer/File Level
+
+Since this requires a different file, I've created [[./file-level-args-test.org][a different file for testing this]].
+** Specifying What To Tangle And What To Export
+*** TODO
 ** Tangling From Multiple Files To The Same Destination
+*** TODO
+- Possibly through tangling multiple files to one and then tangling from there.
+- Or an elisp function for tangling multiple files.
+  - Possibly requiring a way to append to files instead of replacing.
+  - See [[Controlling Tangling Order]].
