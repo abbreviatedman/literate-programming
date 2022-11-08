@@ -1,29 +1,33 @@
 #+PROPERTY: header-args :tangle no
 * Map Operations
 
-** Introduction: Loop Patterns
+** Warmup
+Let's say we've got the following array:
 
-We've written a /lot/ of loops in this course so far. You're gaining practice and mastery with them, to the point where you might have started to recognize /patterns/ in all these loops.
+#+NAME: people
+#+begin_src js
+const people = ["Colin", "Tim", "Mariella"];
+#+end_src
 
-Some of the types of loops you've encountered are:
+#+NAME: mapped-people
+#+begin_src js
+<<people>>
+const attendanceQuestions = people.map((person) => `Is ${person} here today?`)
+#+end_src
 
-1. Loops that hit every even or odd value, or every 3rd or 4th, skipping over some.
-2. Loops that check each value against a condition, acting differently with different kinds of values.
-3. Loops that transform each value in the array in some way, like doubling each number, getting the initials of each name, or extracting a property from each object.
-4. Loops that look at the value before or after the current one, combining values in myriad ways.
-5. Loops that loop through a series of values to give you one value, like an average of numbers, or how often each word appears in a sentence.
+#+begin_src js
+<<mapped-people>>
+console.log(attendanceQuestions)
+#+end_src
 
-In the world of production apps, some of these types of loops appear over and over again. Others don't come up very often at all, but make for good learning exercises.
+#+RESULTS:
+: [
+:   'Is Colin here today?',
+:   'Is Tim here today?',
+:   'Is Mariella here today?'
+: ]
 
-Today we're going to look at one particular type of loop that you find all the time in real-world apps: the map operation (number 3 in the preceding list).
 
-We'll take a look at the mapping operation by deconstructing and generalizing mapping loops, so we can understand the /how/ and the /why/ of using them.
-
-** Manual Mapping - looking at some examples
-** Manual Mapping - We Do
-** Taking A Step Back - creating a HOF forEach
-** Creating a map HOF
-** Using One For Nitter
 ** Nitter
 
 #+NAME: tweets
@@ -53,6 +57,14 @@ const tweets = [
     likes: 8349,
     replies: 132
   },
+  {
+    username: 'phranqueigh',
+    displayName: 'Frankie Zelnick',
+    text: "How dare you call me mentally unstable, on this, the day of my cat's quinceanera.",
+    postId: 5,
+    likes: 3612,
+    replies: 16
+  }
 ];
 
 console.log(tweets)
@@ -84,6 +96,14 @@ console.log(tweets)
     postId: 4,
     likes: 8349,
     replies: 132
+  },
+  {
+    username: 'phranqueigh',
+    displayName: 'Frankie Zelnick',
+    text: "How dare you call me mentally unstable, on this, the day of my cat's quinceanera.",
+    postId: 5,
+    likes: 3612,
+    replies: 16
   }
 ]
 #+end_example
@@ -109,7 +129,7 @@ ${tweet.text}
 ${tweet.likes} Likes   ${tweet.replies} Replies`)
 #+end_src
 
-#+NAME: getFancyTweets
+#+NAME: getDisplayTweetsColor
 #+begin_src js
 <<convertNumber>>
 
@@ -121,7 +141,7 @@ ${tweet.text}
 💙 ${convertNumber(tweet.likes).bold}  🗨 ${convertNumber(tweet.replies).bold}  🔗 Copy Link`)
 #+end_src
 
-#+RESULTS: getFancyTweets
+#+RESULTS: getDisplayTweetsColor
 
 #+begin_src js
 <<tweets>>
@@ -200,12 +220,13 @@ This is a library we'll pull in to allow us to make our terminal output prettier
 const colors = require('colors');
 #+end_src
 
+Now we can di
 #+begin_src js :tangle nitter.js
 <<imports>>
 
 <<tweets>>
 
-<<getFancyTweets>>
+<<getDisplayTweetsColor>>
 
 const displayTweets = tweets.map(getDisplayTweets);
 displayTweets.forEach((displayTweet) => console.log(displayTweet + '\n'));
