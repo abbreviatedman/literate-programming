@@ -1,5 +1,28 @@
 * Map Operations
 
+** Introduction: Loop Patterns
+
+We've written a /lot/ of loops in this course so far. You're gaining practice and mastery with them, to the point where you might have started to recognize /patterns/ in all these loops.
+
+Some of the types of loops you've encountered are:
+
+1. Loops that hit every even or odd value, or every 3rd or 4th, skipping over some.
+2. Loops that check each value against a condition, acting differently with different kinds of values.
+3. Loops that transform each value in the array in some way, like doubling each number, getting the initials of each name, or extracting a property from each object.
+4. Loops that look at the value before or after the current one, combining values in myriad ways.
+5. Loops that loop through a series of values to give you one value, like an average of numbers, or how often each word appears in a sentence.
+
+In the world of production apps, some of these types of loops appear over and over again. Others don't come up very often at all, but make for good learning exercises.
+
+Today we're going to look at one particular type of loop that you find all the time in real-world apps: the map operation (number 3 in the preceding list).
+
+We'll take a look at the mapping operation by deconstructing and generalizing mapping loops, so we can understand the /how/ and the /why/ of using them.
+
+** Manual Mapping - looking at some examples
+** Manual Mapping - We Do
+** Taking A Step Back - creating a HOF forEach
+** Creating a map HOF
+** Using One For Nitter
 ** Warmup
 Let's say we've got the following array:
 
