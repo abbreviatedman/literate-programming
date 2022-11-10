@@ -1,5 +1,10 @@
+#+PROPERTY: header-args :tangle no
 * Map Operations
-
+** Outline
+*** Lesson Objectives
+*** Intro - loop patterns
+*** Manual Mapping I Do
+*** Manual Mapping More Complex Example We Do
 ** Introduction: Loop Patterns
 
 We've written a /lot/ of loops in this course so far. You're gaining practice and mastery with them, to the point where you might have started to recognize /patterns/ in all these loops.
@@ -18,37 +23,149 @@ Today we're going to look at one particular type of loop that you find all the t
 
 We'll take a look at the mapping operation by deconstructing and generalizing mapping loops, so we can understand the /how/ and the /why/ of using them.
 
-** Manual Mapping - looking at some examples
-** Manual Mapping - We Do
-** Taking A Step Back - creating a HOF forEach
-** Creating a map HOF
-** Using One For Nitter
-** Warmup
-Let's say we've got the following array:
-
-#+NAME: people
+** Manual Mapping - Looking At Some Examples
+*** A simple example
 #+begin_src js
-const people = ["Colin", "Tim", "Mariella"];
-#+end_src
+const people = ["Colin", "Kerridene", "Tim"];
+const attendanceChecks = [];
+for (let i = 0; i < people.length; i++) {
+  attendanceChecks.push(`Is ${people[i]} here today?`)
+}
 
-#+NAME: mapped-people
-#+begin_src js
-<<people>>
-const attendanceQuestions = people.map((person) => `Is ${person} here today?`)
-#+end_src
-
-#+begin_src js
-<<mapped-people>>
-console.log(attendanceQuestions)
+console.log(attendanceChecks)
 #+end_src
 
 #+RESULTS:
 : [
 :   'Is Colin here today?',
-:   'Is Tim here today?',
-:   'Is Mariella here today?'
+:   'Is Kerridene here today?',
+:   'Is Tim here today?'
 : ]
 
+*** Another Common Example
+Here's an example using numbers:
+
+#+begin_src js
+const grades = [90, 85, 53, 76];
+const curvedGrades = [];
+for (let i = 0; i < grades.length; i++) {
+  curvedGrades.push(grades[i] + 10);
+}
+
+console.log(curvedGrades);
+#+end_src
+
+#+RESULTS:
+: [ 100, 95, 63, 86 ]
+
+*** Let's Do One Together
+
+We'll have to do a little more work this time!
+
+#+begin_src js
+const grades = [90, 85, 53, 76];
+const passFailGrades = [];
+for (let i = 0; i < grades.length; i++) {
+  let passFailGrade = "Fail";
+  if (grades[i] >= 60) {
+    passFailGrade = "Pass";
+  }
+
+  passFailGrades.push(passFailGrade);
+}
+
+console.log(passFailGrades);
+#+end_src
+
+#+RESULTS:
+: [ 'Pass', 'Pass', 'Fail', 'Pass' ]
+
+*** Question: what is the pattern here?
+
+*** So What Is A Map Operation
+Breaking it down, in a map operation, we return a /new/ array where we've transformed the original values into new ones. In this case, the transformation went from a person's first name to a sentence containing the first name.
+
+Doing it in a loop looks like this:
+
+1. Create an empty array.
+2. Loop through the old array.
+3. Transform the value (in this case, from a simple name string into a sentence)
+4. Push that value into the new array.
+
+Mapping operations are /extremely/ common in engineering. Let's look at some examples!
+
+#+ATTR_ORG: :width 600
+[[./twitter-feed.png]]
+
+#+ATTR_ORG: :width 600
+[[./netflix.jpg]]
+
+#+ATTR_ORG: :width 600
+[[./meta.png]]
+
+
+** Manual Mapping - We Do Exercise
+#+NAME: people-2
+#+begin_src js
+const people = [
+  {
+    name: {
+      first: 'Kerridene',
+      last: 'Waters'
+    },
+
+    age: 28,
+    isAwesome: true,
+    isModest: true,
+    hobbies: ['Biking', 'Horticulture', 'Woodworking']
+  },
+  {
+    name: {
+      first: 'Colin',
+      last: 'Jaffe'
+    },
+
+    age: 42,
+    isAwesome: true,
+    isModest: false,
+    hobbies: ['Emacs', 'Board Games', 'Writing']
+  },
+  {
+    name: {
+      first: 'Tim',
+      last: 'Calhoun'
+    },
+
+    age: Infinity,
+    isAwesome: true,
+    isModest: true,
+    hobbies: ['Skiing', 'Hiking', 'Taking Names']
+  },
+]
+#+end_src
+
+#+NAME: bios
+#+begin_src js
+const bios = []
+for (let i = 0; i < people.length; i++) {
+  const fullName = people[i].name.first + ' ' + people[i].name.last;
+  const hobbies = people[i].hobbies.join(' and ')
+  bios.push(`${fullName} is ${people[i].age} years old and loves ${hobbies}.`)
+}
+#+end_src
+
+#+begin_src js
+<<people-2>>
+<<bios>>
+console.log(bios);
+#+end_src
+
+#+RESULTS:
+: [
+:   'Kerridene Waters is 28 years old and loves Biking and Horticulture and Woodworking.',
+:   'Colin Jaffe is 42 years old and loves Emacs and Board Games and Writing.',
+:   'Tim Calhoun is Infinity years old and loves Skiing and Hiking and Taking Names.'
+: ]
 
 ** Nitter
 
