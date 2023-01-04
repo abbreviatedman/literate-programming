@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="author" content="Colin Jaffe"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="/home/abbreviatedman/.emacs.d/.local/straight/build-28.1.50/revealjs/dist/reveal.css"/>
+
+<link rel="stylesheet" href="/home/abbreviatedman/.emacs.d/.local/straight/build-28.1.50/revealjs/dist/theme/black.css" id="theme"/>
+<style>.example::before {content: "Results:"; display: block; margin-bottom: 1em;}</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide">
+<h2 class="author">Colin Jaffe</h2><p class="date">Created: 2022-11-10 Thu 13:48</p>
+</section>
+<section>
+<section id="slide-1">
+<h2 id="1"><span class="section-number-2">1.</span> Map Operations</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+</section>
+<section id="slide-1-1">
+<h3 id="1-1"><span class="section-number-3">1.1.</span> Outline</h3>
+<div class="outline-text-3" id="text-1-1">
+</div>
+</section>
+<section id="slide-1-1-1">
+<h4 id="1-1-1"><span class="section-number-4">1.1.1.</span> Lesson Objectives</h4>
+</section>
+<section id="slide-1-1-2">
+<h4 id="1-1-2"><span class="section-number-4">1.1.2.</span> Intro - loop patterns</h4>
+</section>
+<section id="slide-1-1-3">
+<h4 id="1-1-3"><span class="section-number-4">1.1.3.</span> Manual Mapping I Do</h4>
+</section>
+<section id="slide-1-1-4">
+<h4 id="1-1-4"><span class="section-number-4">1.1.4.</span> Manual Mapping More Complex Example We Do</h4>
+</section>
+<section id="slide-1-2">
+<h3 id="1-2"><span class="section-number-3">1.2.</span> Introduction: Loop Patterns</h3>
+<p>
+We&rsquo;ve written a <i>lot</i> of loops in this course so far. You&rsquo;re gaining practice and mastery with them, to the point where you might have started to recognize <i>patterns</i> in all these loops.
+</p>
+
+<p>
+Some of the types of loops you&rsquo;ve encountered are:
+</p>
+
+<ol>
+<li>Loops that hit every even or odd value, or every 3rd or 4th, skipping over some.</li>
+<li>Loops that check each value against a condition, acting differently with different kinds of values.</li>
+<li>Loops that transform each value in the array in some way, like doubling each number, getting the initials of each name, or extracting a property from each object.</li>
+<li>Loops that look at the value before or after the current one, combining values in myriad ways.</li>
+<li>Loops that loop through a series of values to give you one value, like an average of numbers, or how often each word appears in a sentence.</li>
+
+</ol>
+
+<p>
+In the world of production apps, some of these types of loops appear over and over again. Others don&rsquo;t come up very often at all, but make for good learning exercises.
+</p>
+
+<p>
+Today we&rsquo;re going to look at one particular type of loop that you find all the time in real-world apps: the map operation (number 3 in the preceding list).
+</p>
+
+<p>
+We&rsquo;ll take a look at the mapping operation by deconstructing and generalizing mapping loops, so we can understand the <i>how</i> and the <i>why</i> of using them.
+</p>
+
+</section>
+<section id="slide-1-3">
+<h3 id="1-3"><span class="section-number-3">1.3.</span> Manual Mapping - Looking At Some Examples</h3>
+<div class="outline-text-3" id="text-1-3">
+</div>
+</section>
+<section id="slide-1-3-1">
+<h4 id="1-3-1"><span class="section-number-4">1.3.1.</span> A simple example</h4>
+<div class="org-src-container">
+
+<pre class="src src-js"><span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">people</span> = [<span style="color: #145c33;">"Colin"</span>, <span style="color: #145c33;">"Kerridene"</span>, <span style="color: #145c33;">"Tim"</span>];
+<span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">attendanceChecks</span> = [];
+<span style="color: #00538b; font-weight: bold;">for</span> (<span style="color: #00538b; font-weight: bold;">let</span> <span style="color: #2544bb;">i</span> = <span style="color: #0000c0;">0</span>; i &lt; people.length; i++) {
+  attendanceChecks.push(<span style="color: #145c33;">`Is ${people[i]} here today?`</span>)
+}
+
+console.log(attendanceChecks)
+</pre>
+</div>
+
+<pre class="example">
+[
+  'Is Colin here today?',
+  'Is Kerridene here today?',
+  'Is Tim here today?'
+]
+</pre>
+
+</section>
+<section id="slide-1-3-2">
+<h4 id="1-3-2"><span class="section-number-4">1.3.2.</span> Another Common Example</h4>
+<p>
+Here&rsquo;s an example using numbers:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-js"><span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">grades</span> = [<span style="color: #0000c0;">90</span>, <span style="color: #0000c0;">85</span>, <span style="color: #0000c0;">53</span>, <span style="color: #0000c0;">76</span>];
+<span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">curvedGrades</span> = [];
+<span style="color: #00538b; font-weight: bold;">for</span> (<span style="color: #00538b; font-weight: bold;">let</span> <span style="color: #2544bb;">i</span> = <span style="color: #0000c0;">0</span>; i &lt; grades.length; i++) {
+  curvedGrades.push(grades[i] + <span style="color: #0000c0;">10</span>);
+}
+
+console.log(curvedGrades);
+</pre>
+</div>
+
+<pre class="example">
+[ 100, 95, 63, 86 ]
+</pre>
+
+</section>
+<section id="slide-1-3-3">
+<h4 id="1-3-3"><span class="section-number-4">1.3.3.</span> Let&rsquo;s Do One Together</h4>
+<p>
+We&rsquo;ll have to do a little more work this time!
+</p>
+
+<p>
+<b>Our task</b>: take the below grades and build a new array of pass/fail statuses.
+</p>
+
+<p>
+The business logic is as follows: if a grade is at least 60, the pass/fail status should be &ldquo;Pass&rdquo;. Otherwise, it should be &ldquo;Fail&rdquo;.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-js"><span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">grades</span> = [<span style="color: #0000c0;">90</span>, <span style="color: #0000c0;">85</span>, <span style="color: #0000c0;">53</span>, <span style="color: #0000c0;">76</span>];
+</pre>
+</div>
+
+</section>
+<section id="slide-1-3-4">
+<h4 id="1-3-4"><span class="section-number-4">1.3.4.</span> Question: what is the pattern here?</h4>
+<p>
+What do these map operations share in common?
+</p>
+
+</section>
+<section id="slide-1-3-5">
+<h4 id="1-3-5"><span class="section-number-4">1.3.5.</span> So What Is A Map Operation</h4>
+<p>
+Breaking it down, in a map operation, we return a <i>new</i> array where we&rsquo;ve transformed the original values into new ones. In these cases, the transformations were:
+</p>
+
+<ul>
+<li>From a person&rsquo;s first name to a sentence containing the first name.</li>
+<li>From grades to grades with a bonus.</li>
+<li>From grades to pass/fail statuses.</li>
+
+</ul>
+
+<p>
+Doing it in a loop looks like this:
+</p>
+
+<ol>
+<li>Create an empty array.</li>
+<li>Loop through the old array.</li>
+<li>Transform the value (in this case, from a simple name string into a sentence)</li>
+<li>Push that value into the new array.</li>
+
+</ol>
+
+<p>
+Mapping operations are <i>extremely</i> common in engineering. Let&rsquo;s look at some examples!
+</p>
+
+
+<div id="orga64e822" class="figure">
+<p><img src="./twitter-feed.png" alt="twitter-feed.png" />
+</p>
+</div>
+
+
+<div id="org6652f25" class="figure">
+<p><img src="./netflix.jpg" alt="netflix.jpg" />
+</p>
+</div>
+
+
+<div id="org90d7291" class="figure">
+<p><img src="./meta.png" alt="meta.png" />
+</p>
+</div>
+</section>
+<section id="slide-1-4">
+<h3 id="1-4"><span class="section-number-3">1.4.</span> Generalizing Code</h3>
+<div class="outline-text-3" id="text-1-4">
+</div>
+</section>
+<section id="slide-1-4-1">
+<h4 id="1-4-1"><span class="section-number-4">1.4.1.</span> QUESTION: What code is repeated among these examples?</h4>
+
+</section>
+<section id="slide-1-4-2">
+<h4 id="1-4-2"><span class="section-number-4">1.4.2.</span> QUESTION: Why cut down on repeated code?</h4>
+<p>
+We generalize code all the time to avoid repeating things. Any loop is a basic generalization of code:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-js"><span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">people</span> = [<span style="color: #145c33;">'Colin'</span>, <span style="color: #145c33;">'Tim'</span>, <span style="color: #145c33;">'Kerridene'</span>]
+console.log(people[<span style="color: #0000c0;">0</span>])
+console.log(people[<span style="color: #0000c0;">1</span>])
+console.log(people[<span style="color: #0000c0;">2</span>])
+</pre>
+</div>
+
+<pre class="example">
+Colin
+Tim
+Kerridene
+</pre>
+
+
+<p>
+We generalize because we are doing the same thing multiple times, for the reasons we said before, but also because we want to be able to think about <i>what</i> the task is doing, not <i>how</i> it does it.
+</p>
+
+<p>
+Loops are all about <b>how</b>: what index we&rsquo;re starting at, what index we stop at, whether to use a <code>for</code> or a <code>while</code>  or a <code>for of</code> loop.  Instead, what we want is something <i>expressive</i> that can tell us more cleanly what it is we&rsquo;re actually doing.
+</p>
+
+</section>
+<section id="slide-1-5">
+<h3 id="1-5"><span class="section-number-3">1.5.</span> Manual Mapping - We Do Exercise</h3>
+<div class="org-src-container">
+
+<pre class="src src-js" id="people-2"><span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">people</span> = [
+  {
+    name: {
+      first: <span style="color: #145c33;">'Kerridene'</span>,
+      last: <span style="color: #145c33;">'Waters'</span>
+    },
+
+    age: <span style="color: #0000c0;">28</span>,
+    isAwesome: <span style="color: #5317ac;">true</span>,
+    isModest: <span style="color: #5317ac;">true</span>,
+    hobbies: [<span style="color: #145c33;">'Biking'</span>, <span style="color: #145c33;">'Horticulture'</span>, <span style="color: #145c33;">'Woodworking'</span>]
+  },
+  {
+    name: {
+      first: <span style="color: #145c33;">'Colin'</span>,
+      last: <span style="color: #145c33;">'Jaffe'</span>
+    },
+
+    age: <span style="color: #0000c0;">42</span>,
+    isAwesome: <span style="color: #5317ac;">true</span>,
+    isModest: <span style="color: #5317ac;">false</span>,
+    hobbies: [<span style="color: #145c33;">'Emacs'</span>, <span style="color: #145c33;">'Board Games'</span>, <span style="color: #145c33;">'Writing'</span>]
+  },
+  {
+    name: {
+      first: <span style="color: #145c33;">'Tim'</span>,
+      last: <span style="color: #145c33;">'Calhoun'</span>
+    },
+
+    age: <span style="color: #5317ac;">Infinity</span>,
+    isAwesome: <span style="color: #5317ac;">true</span>,
+    isModest: <span style="color: #5317ac;">true</span>,
+    hobbies: [<span style="color: #145c33;">'Skiing'</span>, <span style="color: #145c33;">'Hiking'</span>, <span style="color: #145c33;">'Taking Names'</span>]
+  },
+]
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-js" id="bios"><span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">bios</span> = []
+<span style="color: #00538b; font-weight: bold;">for</span> (<span style="color: #00538b; font-weight: bold;">let</span> <span style="color: #2544bb;">i</span> = <span style="color: #0000c0;">0</span>; i &lt; people.length; i++) {
+  <span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">fullName</span> = people[i].name.first + <span style="color: #145c33;">' '</span> + people[i].name.last;
+  <span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">hobbies</span> = people[i].hobbies.join(<span style="color: #145c33;">' and '</span>)
+  bios.push(<span style="color: #145c33;">`${fullName} is ${people[i].age} years old and loves ${hobbies}.`</span>)
+}
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-js">
+
+console.log(bios);
+</pre>
+</div>
+
+<pre class="example">
+[
+  'Kerridene Waters is 28 years old and loves Biking and Horticulture and Woodworking.',
+  'Colin Jaffe is 42 years old and loves Emacs and Board Games and Writing.',
+  'Tim Calhoun is Infinity years old and loves Skiing and Hiking and Taking Names.'
+]
+</pre>
+
+</section>
+<section id="slide-1-6">
+<h3 id="1-6"><span class="section-number-3">1.6.</span> Nitter</h3>
+<div class="org-src-container">
+
+<pre class="src src-js" id="tweets"><span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">tweets</span> = [
+  {
+    username: <span style="color: #145c33;">'dril'</span>,
+    text: <span style="color: #145c33;">'Update from the good time line&#8212;Bacion is legal to eat at work thanks to President Banksy in the whitehouse, now known as the star wars house'</span>,
+    displayName: <span style="color: #145c33;">'wint'</span>,
+    postId: <span style="color: #0000c0;">2</span>,
+    likes: <span style="color: #0000c0;">3999</span>,
+    replies: <span style="color: #0000c0;">137</span>
+  },
+  {
+    username: <span style="color: #145c33;">'Leemanish'</span>,
+    displayName: <span style="color: #145c33;">'blake'</span>,
+    text: <span style="color: #145c33;">'Sick of having to go to 2 different huts to buy pizza &amp; sunglasses.'</span>,
+    postId: <span style="color: #0000c0;">3</span>,
+    likes: <span style="color: #0000c0;">4736</span>,
+    replies: <span style="color: #0000c0;">15</span>
+  },
+  {
+    username: <span style="color: #145c33;">'queer_queenie'</span>,
+    displayName: <span style="color: #145c33;">'Queenie'</span>,
+    text: <span style="color: #145c33;">`i hold a gender reveal party. all my relatives wait as i pull off the cake cover. the icing says "gender is a spectrum". it's too late, i have the powerpoint up`</span>,
+    postId: <span style="color: #0000c0;">4</span>,
+    likes: <span style="color: #0000c0;">8349</span>,
+    replies: <span style="color: #0000c0;">132</span>
+  },
+  {
+    username: <span style="color: #145c33;">'phranqueigh'</span>,
+    displayName: <span style="color: #145c33;">'Frankie Zelnick'</span>,
+    text: <span style="color: #145c33;">"How dare you call me mentally unstable, on this, the day of my cat's quinceanera."</span>,
+    postId: <span style="color: #0000c0;">5</span>,
+    likes: <span style="color: #0000c0;">3612</span>,
+    replies: <span style="color: #0000c0;">16</span>
+  }
+];
+
+console.log(tweets)
+</pre>
+</div>
+
+<pre class="example" id="org394d377">
+[
+  {
+    username: 'dril',
+    text: 'Update from the good time line—Bacion is legal to eat at work thanks to President Banksy in the whitehouse, now known as the star wars house',
+    displayName: 'wint',
+    postId: 2,
+    likes: 3999,
+    replies: 137
+  },
+  {
+    username: 'Leemanish',
+    displayName: 'blake',
+    text: 'Sick of having to go to 2 different huts to buy pizza &amp; sunglasses.',
+    postId: 3,
+    likes: 4736,
+    replies: 15
+  },
+  {
+    username: 'queer_queenie',
+    displayName: 'Queenie',
+    text: `i hold a gender reveal party. all my relatives wait as i pull off the cake cover. the icing says "gender is a spectrum". it's too late, i have the powerpoint up`,
+    postId: 4,
+    likes: 8349,
+    replies: 132
+  },
+  {
+    username: 'phranqueigh',
+    displayName: 'Frankie Zelnick',
+    text: "How dare you call me mentally unstable, on this, the day of my cat's quinceanera.",
+    postId: 5,
+    likes: 3612,
+    replies: 16
+  }
+]
+</pre>
+
+<div class="org-src-container">
+
+<pre class="src src-js" id="convertNumber"><span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">convertNumber</span> = (number) =&gt; {
+  <span style="color: #00538b; font-weight: bold;">if</span> (number &lt; <span style="color: #0000c0;">1000</span>) {
+    <span style="color: #00538b; font-weight: bold;">return</span> number.toString();
+  }
+
+  <span style="color: #00538b; font-weight: bold;">return</span> (Math.floor(number / <span style="color: #0000c0;">100</span>) / <span style="color: #0000c0;">10</span>).toString() + <span style="color: #145c33;">'K'</span>
+}
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-js" id="getDisplayTweets"><span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">getDisplayTweets</span> = (tweet) =&gt; (<span style="color: #145c33;">`${tweet.displayName}</span>
+<span style="color: #145c33;">@${tweet.username}</span>
+
+<span style="color: #145c33;">${tweet.text}</span>
+
+<span style="color: #145c33;">${tweet.likes} Likes   ${tweet.replies} Replies`</span>)
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-js" id="getDisplayTweetsColor">
+
+<span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">getDisplayTweets</span> = (tweet) =&gt; (<span style="color: #145c33;">`${tweet.displayName.blue}</span>
+<span style="color: #145c33;">@${tweet.username}</span>
+
+<span style="color: #145c33;">${tweet.text}</span>
+
+<span style="color: #145c33;">&#128153; ${convertNumber(tweet.likes).bold}  &#128488; ${convertNumber(tweet.replies).bold}  &#128279; Copy Link`</span>)
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-js">
+
+<span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">tweet</span> = getDisplayTweets(tweets[<span style="color: #0000c0;">0</span>]);
+console.log(tweet);
+</pre>
+</div>
+
+<pre class="example">
+wint
+@dril
+
+Update from the good time line—Bacion is legal to eat at work thanks to President Banksy in the whitehouse, now known as the star wars house
+
+2139 Likes   NaN Replies
+</pre>
+
+
+
+<div class="org-src-container">
+
+<pre class="src src-js">
+
+<span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">tweetStrings</span> = [];
+<span style="color: #00538b; font-weight: bold;">for</span> (<span style="color: #00538b; font-weight: bold;">let</span> <span style="color: #2544bb;">i</span> = <span style="color: #0000c0;">0</span>; i &lt; tweets.length; i++) {
+  <span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">tweet</span> = tweets[i];
+  <span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">tweetString</span> = <span style="color: #145c33;">`${tweet.displayName}</span>
+<span style="color: #145c33;">@${tweet.username}</span>
+
+<span style="color: #145c33;">${tweet.text}</span>
+
+<span style="color: #145c33;">${tweet.retweets} Retweets   ${tweet.likes} Likes   ${tweet.replies} Replies`</span>
+  tweetStrings.push(tweetString);
+}
+
+tweetStrings.forEach((tweetString) =&gt; console.log(tweetString + <span style="color: #145c33;">'\n\n'</span>))
+</pre>
+</div>
+
+<pre class="example" id="org5d89df3">
+wint
+@dril
+
+Update from the good time line—Bacion is legal to eat at work thanks to President Banksy in the whitehouse, now known as the star wars house
+
+1200 Retweets   8200 Likes   28 Replies
+
+
+blake
+@Leemanish
+
+Sick of having to go to 2 different huts to buy pizza &amp; sunglasses.
+
+2900 Retweets   6300 Likes   210 Replies
+
+
+Queenie
+@queer_queenie
+
+i hold a gender reveal party. all my relatives wait as i pull off the cake cover. the icing says "gender is a spectrum". it's too late, i have the powerpoint up
+
+16900 Retweets   70600 Likes   730 Replies
+
+
+Frankie Zelnick
+@phranqueigh
+
+How dare you call me mentally unstable, on this, the day of my cat's quinceanera.
+
+5000 Retweets   9300 Likes   121 Replies
+
+
+</pre>
+
+<p>
+This is a library we&rsquo;ll pull in to allow us to make our terminal output prettier. We&rsquo;ll be using it exclusively to get bold text in our tweets.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-js" id="imports"><span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">colors</span> = require(<span style="color: #145c33;">'colors'</span>);
+</pre>
+</div>
+
+<p>
+Now we can di
+</p>
+<div class="org-src-container">
+
+<pre class="src src-js">
+
+
+
+
+
+<span style="color: #00538b; font-weight: bold;">const</span> <span style="color: #2544bb;">displayTweets</span> = tweets.map(getDisplayTweets);
+displayTweets.forEach((displayTweet) =&gt; console.log(displayTweet + <span style="color: #145c33;">'\n'</span>));
+</pre>
+</div>
+</section>
+</section>
+</div>
+</div>
+<script src="/home/abbreviatedman/.emacs.d/.local/straight/build-28.1.50/revealjs/dist/reveal.js"></script>
+<script src="/home/abbreviatedman/.emacs.d/.local/straight/build-28.1.50/revealjs/plugin/markdown/markdown.js"></script>
+<script src="/home/abbreviatedman/.emacs.d/.local/straight/build-28.1.50/revealjs/plugin/notes/notes.js"></script>
+<script src="/home/abbreviatedman/.emacs.d/.local/straight/build-28.1.50/revealjs/plugin/search/search.js"></script>
+<script src="/home/abbreviatedman/.emacs.d/.local/straight/build-28.1.50/revealjs/plugin/zoom/zoom.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+overview: true,
+
+transition: 'convex',
+transitionSpeed: 'default',
+
+// Plugins with reveal.js 4.x
+plugins: [ RevealMarkdown, RevealNotes, RevealSearch, RevealZoom ],
+
+// Optional libraries used to extend reveal.js
+dependencies: [
+]
+
+});
+</script>
+</body>
+</html>

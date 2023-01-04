@@ -1,10 +1,18 @@
-#+PROPERTY: header-args :tangle no
 * Map Operations
 ** Outline
 *** Lesson Objectives
 *** Intro - loop patterns
-*** Manual Mapping I Do
-*** Manual Mapping More Complex Example We Do
+*** Manual Mapping - Looking At Some Examples
+*** Generalizing Code
+*** Introducing: =.map=
+*** =.map= Mapping - We Do Exercise
+** Lesson Objectives
+By the end of this session, you should be able to:
+
+- Explain what a map operation is.
+- Implement a map operation using JavaScript's built-in =.map= method.
+- Implement your own version of =.map= to better understand how it works.
+
 ** Introduction: Loop Patterns
 
 We've written a /lot/ of loops in this course so far. You're gaining practice and mastery with them, to the point where you might have started to recognize /patterns/ in all these loops.
@@ -42,48 +50,50 @@ console.log(attendanceChecks)
 :   'Is Tim here today?'
 : ]
 
-*** Another Common Example
-Here's an example using numbers:
+*** Let's Do One Together
+We'll write a map operation where we grade on a curve.
+
+*Activity*: take the following grades and create a new array where every grade has been increased by 10 points.
 
 #+begin_src js
 const grades = [90, 85, 53, 76];
-const curvedGrades = [];
+const augmentedGrades = [];
 for (let i = 0; i < grades.length; i++) {
-  curvedGrades.push(grades[i] + 10);
+  augmentedGrades.push(grades[i] + 10)
 }
 
-console.log(curvedGrades);
+console.log(augmentedGrades)
 #+end_src
 
 #+RESULTS:
 : [ 100, 95, 63, 86 ]
 
-*** Let's Do One Together
+*** Breakout room activity
 
 We'll have to do a little more work this time!
 
+*Our task*: take the below grades and build a new array of pass/fail statuses.
+
+The business logic is as follows: if a grade is at least 60, the pass/fail status should be "Pass". Otherwise, it should be "Fail".
+
 #+begin_src js
 const grades = [90, 85, 53, 76];
-const passFailGrades = [];
-for (let i = 0; i < grades.length; i++) {
-  let passFailGrade = "Fail";
-  if (grades[i] >= 60) {
-    passFailGrade = "Pass";
-  }
 
-  passFailGrades.push(passFailGrade);
-}
-
-console.log(passFailGrades);
+//> ['Pass', 'Pass', 'Fail', 'Pass']
 #+end_src
 
-#+RESULTS:
-: [ 'Pass', 'Pass', 'Fail', 'Pass' ]
+
 
 *** Question: what is the pattern here?
 
+What do these map operations share in common?
+
 *** So What Is A Map Operation
-Breaking it down, in a map operation, we return a /new/ array where we've transformed the original values into new ones. In this case, the transformation went from a person's first name to a sentence containing the first name.
+Breaking it down, in a map operation, we return a /new/ array where we've transformed the original values into new ones. In these cases, the transformations were:
+
+- From a person's first name to a sentence containing the first name.
+- From grades to grades with a bonus.
+- From grades to pass/fail statuses.
 
 Doing it in a loop looks like this:
 
@@ -94,17 +104,34 @@ Doing it in a loop looks like this:
 
 Mapping operations are /extremely/ common in engineering. Let's look at some examples!
 
-#+ATTR_ORG: :width 600
+#+ATTR_ORG: :width 1400
 [[./twitter-feed.png]]
 
-#+ATTR_ORG: :width 600
+#+ATTR_ORG: :width 1400
 [[./netflix.jpg]]
 
-#+ATTR_ORG: :width 600
+#+ATTR_ORG: :width 1400
 [[./meta.png]]
+** Generalizing Code
+*** QUESTION: What code is repeated among these examples?
 
+*** QUESTION: Why cut down on repeated code?
 
-** Manual Mapping - We Do Exercise
+We generalize code all the time to avoid repeating things. Any loop is a basic generalization of code:
+
+#+begin_src js
+const people = ['Colin', 'Tim', 'Kerridene']
+console.log(people[0])
+console.log(people[1])
+console.log(people[2])
+#+end_src
+
+We generalize because we are doing the same thing multiple times, for the reasons we said before, but also because we want to be able to think about /what/ the task is doing, not /how/ it does it.
+
+Loops are all about *how*: what index we're starting at, what index we stop at, whether to use a =for= or a =while=  or a =for of= loop.  Instead, what we want is something /expressive/ that can tell us more cleanly what it is we're actually doing.
+
+** Introducing: =.map=
+** =.map= Mapping - We Do Exercise
 #+NAME: people-2
 #+begin_src js
 const people = [
@@ -167,208 +194,3 @@ console.log(bios);
 :   'Tim Calhoun is Infinity years old and loves Skiing and Hiking and Taking Names.'
 : ]
 
-** Nitter
-
-#+NAME: tweets
-#+begin_src js
-const tweets = [
-  {
-    username: 'dril',
-    text: 'Update from the good time line—Bacion is legal to eat at work thanks to President Banksy in the whitehouse, now known as the star wars house',
-    displayName: 'wint',
-    postId: 2,
-    likes: 3999,
-    replies: 137
-  },
-  {
-    username: 'Leemanish',
-    displayName: 'blake',
-    text: 'Sick of having to go to 2 different huts to buy pizza & sunglasses.',
-    postId: 3,
-    likes: 4736,
-    replies: 15
-  },
-  {
-    username: 'queer_queenie',
-    displayName: 'Queenie',
-    text: `i hold a gender reveal party. all my relatives wait as i pull off the cake cover. the icing says "gender is a spectrum". it's too late, i have the powerpoint up`,
-    postId: 4,
-    likes: 8349,
-    replies: 132
-  },
-  {
-    username: 'phranqueigh',
-    displayName: 'Frankie Zelnick',
-    text: "How dare you call me mentally unstable, on this, the day of my cat's quinceanera.",
-    postId: 5,
-    likes: 3612,
-    replies: 16
-  }
-];
-
-console.log(tweets)
-#+end_src
-
-#+RESULTS: tweets
-#+begin_example
-[
-  {
-    username: 'dril',
-    text: 'Update from the good time line—Bacion is legal to eat at work thanks to President Banksy in the whitehouse, now known as the star wars house',
-    displayName: 'wint',
-    postId: 2,
-    likes: 3999,
-    replies: 137
-  },
-  {
-    username: 'Leemanish',
-    displayName: 'blake',
-    text: 'Sick of having to go to 2 different huts to buy pizza & sunglasses.',
-    postId: 3,
-    likes: 4736,
-    replies: 15
-  },
-  {
-    username: 'queer_queenie',
-    displayName: 'Queenie',
-    text: `i hold a gender reveal party. all my relatives wait as i pull off the cake cover. the icing says "gender is a spectrum". it's too late, i have the powerpoint up`,
-    postId: 4,
-    likes: 8349,
-    replies: 132
-  },
-  {
-    username: 'phranqueigh',
-    displayName: 'Frankie Zelnick',
-    text: "How dare you call me mentally unstable, on this, the day of my cat's quinceanera.",
-    postId: 5,
-    likes: 3612,
-    replies: 16
-  }
-]
-#+end_example
-
-#+NAME: convertNumber
-#+begin_src js
-const convertNumber = (number) => {
-  if (number < 1000) {
-    return number.toString();
-  }
-
-  return (Math.floor(number / 100) / 10).toString() + 'K'
-}
-#+end_src
-
-#+NAME: getDisplayTweets
-#+begin_src js
-const getDisplayTweets = (tweet) => (`${tweet.displayName}
-@${tweet.username}
-
-${tweet.text}
-
-${tweet.likes} Likes   ${tweet.replies} Replies`)
-#+end_src
-
-#+NAME: getDisplayTweetsColor
-#+begin_src js
-<<convertNumber>>
-
-const getDisplayTweets = (tweet) => (`${tweet.displayName.blue}
-@${tweet.username}
-
-${tweet.text}
-
-💙 ${convertNumber(tweet.likes).bold}  🗨 ${convertNumber(tweet.replies).bold}  🔗 Copy Link`)
-#+end_src
-
-#+RESULTS: getDisplayTweetsColor
-
-#+begin_src js
-<<tweets>>
-<<getDisplayTweets>>
-const tweet = getDisplayTweets(tweets[0]);
-console.log(tweet);
-#+end_src
-
-#+RESULTS:
-: wint
-: @dril
-: 
-: Update from the good time line—Bacion is legal to eat at work thanks to President Banksy in the whitehouse, now known as the star wars house
-: 
-: 2139 Likes   NaN Replies
-
-
-#+begin_src js 
-<<tweets>>
-
-const tweetStrings = [];
-for (let i = 0; i < tweets.length; i++) {
-  const tweet = tweets[i];
-  const tweetString = `${tweet.displayName}
-@${tweet.username}
-
-${tweet.text}
-
-${tweet.retweets} Retweets   ${tweet.likes} Likes   ${tweet.replies} Replies`
-  tweetStrings.push(tweetString);
-}
-
-tweetStrings.forEach((tweetString) => console.log(tweetString + '\n\n'))
-#+end_src
-
-#+RESULTS:
-#+begin_example
-wint
-@dril
-
-Update from the good time line—Bacion is legal to eat at work thanks to President Banksy in the whitehouse, now known as the star wars house
-
-1200 Retweets   8200 Likes   28 Replies
-
-
-blake
-@Leemanish
-
-Sick of having to go to 2 different huts to buy pizza & sunglasses.
-
-2900 Retweets   6300 Likes   210 Replies
-
-
-Queenie
-@queer_queenie
-
-i hold a gender reveal party. all my relatives wait as i pull off the cake cover. the icing says "gender is a spectrum". it's too late, i have the powerpoint up
-
-16900 Retweets   70600 Likes   730 Replies
-
-
-Frankie Zelnick
-@phranqueigh
-
-How dare you call me mentally unstable, on this, the day of my cat's quinceanera.
-
-5000 Retweets   9300 Likes   121 Replies
-
-
-#+end_example
-
-This is a library we'll pull in to allow us to make our terminal output prettier. We'll be using it exclusively to get bold text in our tweets.
-
-#+NAME: imports
-#+begin_src js
-const colors = require('colors');
-#+end_src
-
-Now we can di
-#+begin_src js :tangle nitter.js
-<<imports>>
-
-<<tweets>>
-
-<<getDisplayTweetsColor>>
-
-const displayTweets = tweets.map(getDisplayTweets);
-displayTweets.forEach((displayTweet) => console.log(displayTweet + '\n'));
-#+end_src
-
-#+RESULTS:
